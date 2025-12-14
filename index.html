@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azka HostSite Dashboard</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+    
+    @keyframes shimmer {
+      0% {
+        background-position: -1000px 0;
+      }
+      100% {
+        background-position: 1000px 0;
+      }
+    }
+    
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .shimmer {
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      background-size: 1000px 100%;
+      animation: shimmer 2s infinite;
+    }
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .spinner {
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 0.6s linear infinite;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full overflow-auto">
+  <div id="app-wrapper" class="w-full h-full"><!-- Header dengan Glass Effect -->
+   <header class="glass-effect fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+     <nav class="flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+       <svg class="w-8 h-8 animate-float" viewbox="0 0 40 40" fill="none"><ellipse cx="20" cy="12" rx="12" ry="4" fill="#6366F1" /> <path d="M8 12V20C8 21.657 12.477 24 20 24C27.523 24 32 21.657 32 20V12" fill="#8B5CF6" /> <ellipse cx="20" cy="20" rx="12" ry="4" fill="#A78BFA" /> <path d="M8 20V28C8 29.657 12.477 32 20 32C27.523 32 32 29.657 32 28V20" fill="#8B5CF6" /> <ellipse cx="20" cy="28" rx="12" ry="4" fill="#C4B5FD" />
+       </svg><span id="site-title" class="text-2xl font-bold">Azka HostSite</span>
+      </div>
+      <div class="hidden md:flex space-x-8"><a href="#home" class="hover:text-indigo-400 transition-colors">Home</a> <a href="#products" class="hover:text-indigo-400 transition-colors">Produk</a> <a href="#features" class="hover:text-indigo-400 transition-colors">Features</a> <a href="#about" class="hover:text-indigo-400 transition-colors">Tentang</a> <a href="#faq" class="hover:text-indigo-400 transition-colors">FAQ</a> <a href="#contact" class="hover:text-indigo-400 transition-colors">Contact</a>
+      </div><button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors">
+       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+       </svg></button>
+     </nav>
+    </div>
+   </header><!-- Mobile Menu -->
+   <div id="mobile-menu" class="fixed inset-0 z-40 hidden">
+    <div class="absolute inset-0 bg-black/50" id="mobile-menu-overlay"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-64 glass-effect p-6 transform transition-transform duration-300" id="mobile-menu-panel">
+     <div class="flex flex-col space-y-6 mt-16"><a href="#home" class="text-lg hover:text-indigo-400 transition-colors mobile-menu-link">Home</a> <a href="#products" class="text-lg hover:text-indigo-400 transition-colors mobile-menu-link">Produk</a> <a href="#features" class="text-lg hover:text-indigo-400 transition-colors mobile-menu-link">Features</a> <a href="#about" class="text-lg hover:text-indigo-400 transition-colors mobile-menu-link">Tentang</a> <a href="#faq" class="text-lg hover:text-indigo-400 transition-colors mobile-menu-link">FAQ</a> <a href="#contact" class="text-lg hover:text-indigo-400 transition-colors mobile-menu-link">Contact</a>
+     </div>
+    </div>
+   </div><!-- Hero Section -->
+   <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-6">
+    <div class="max-w-4xl text-center">
+     <div class="animate-fade-in-up" style="animation-delay: 0.2s; opacity: 0;">
+      <h1 id="hero-title" class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Selamat Datang di Masa Depan</h1>
+     </div>
+     <div class="animate-fade-in-up" style="animation-delay: 0.4s; opacity: 0;">
+      <p id="hero-subtitle" class="text-xl md:text-2xl mb-8 opacity-80">Solusi digital modern untuk kebutuhan bisnis Anda</p>
+     </div>
+     <div class="animate-fade-in-up flex flex-col sm:flex-row gap-4 justify-center" style="animation-delay: 0.6s; opacity: 0;"><button id="cta-button" class="px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-110 hover:shadow-lg shimmer"> Mulai Sekarang </button> <button id="learn-more-btn" class="px-8 py-4 rounded-full font-semibold text-lg border-2 transition-all duration-300 hover:scale-110 hover:bg-white/10"> Pelajari Lebih Lanjut </button>
+     </div><!-- Animated Decorative Elements -->
+     <div class="mt-16 relative h-64">
+      <div class="absolute inset-0 flex items-center justify-center">
+       <svg class="w-full h-full max-w-2xl animate-float" style="animation-delay: 0.5s;" viewbox="0 0 400 300" fill="none"><circle cx="100" cy="150" r="60" fill="#6366F1" opacity="0.2" /> <circle cx="200" cy="100" r="80" fill="#8B5CF6" opacity="0.2" /> <circle cx="300" cy="150" r="60" fill="#EC4899" opacity="0.2" />
+       </svg>
+      </div>
+     </div>
+    </div>
+   </section><!-- Hosting Products Section -->
+   <section id="products" class="py-20 px-6 hidden">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">Paket Panel Hosting</h2>
+      <p class="text-xl opacity-80">Pilih paket hosting yang sesuai dengan kebutuhan Anda</p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-8"><!-- Starter Package -->
+      <div class="glass-effect rounded-2xl p-8 card-hover border-2 border-transparent hover:border-indigo-500">
+       <div class="text-center mb-6">
+        <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
+         <svg class="w-12 h-12 text-white" viewbox="0 0 40 40" fill="none"><ellipse cx="20" cy="12" rx="10" ry="3" fill="white" /> <path d="M10 12V18C10 19.657 13.134 21 20 21C26.866 21 30 19.657 30 18V12" fill="white" opacity="0.8" /> <ellipse cx="20" cy="18" rx="10" ry="3" fill="white" opacity="0.6" /> <path d="M10 18V24C10 25.657 13.134 27 20 27C26.866 27 30 25.657 30 24V18" fill="white" opacity="0.8" /> <ellipse cx="20" cy="24" rx="10" ry="3" fill="white" opacity="0.4" />
+         </svg>
+        </div>
+        <h3 class="text-2xl font-bold mb-2">Starter</h3>
+        <div class="text-4xl font-bold mb-4"><span class="text-indigo-400">Rp 50K</span> <span class="text-lg opacity-70">/bulan</span>
+        </div>
+       </div>
+       <ul class="space-y-3 mb-8">
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>5 GB SSD Storage</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>1 Database MySQL</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>Unlimited Bandwidth</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>SSL Certificate</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>24/7 Support</span></li>
+       </ul><button class="package-btn w-full py-3 px-6 rounded-xl font-semibold border-2 border-indigo-400 hover:bg-indigo-400 transition-all duration-300" data-package="Starter" data-price="50000"> Pilih Paket </button>
+      </div><!-- Professional Package (Popular) -->
+      <div class="glass-effect rounded-2xl p-8 card-hover border-2 border-indigo-500 relative transform md:scale-105">
+       <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-indigo-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+        POPULER
+       </div>
+       <div class="text-center mb-6">
+        <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+         <svg class="w-12 h-12 text-white" viewbox="0 0 40 40" fill="none"><ellipse cx="20" cy="10" rx="12" ry="4" fill="white" /> <path d="M8 10V17C8 18.657 12.477 21 20 21C27.523 21 32 18.657 32 17V10" fill="white" opacity="0.9" /> <ellipse cx="20" cy="17" rx="12" ry="4" fill="white" opacity="0.7" /> <path d="M8 17V24C8 25.657 12.477 28 20 28C27.523 28 32 25.657 32 24V17" fill="white" opacity="0.9" /> <ellipse cx="20" cy="24" rx="12" ry="4" fill="white" opacity="0.5" /> <path d="M8 24V31C8 32.657 12.477 35 20 35C27.523 35 32 32.657 32 31V24" fill="white" opacity="0.9" /> <ellipse cx="20" cy="31" rx="12" ry="4" fill="white" opacity="0.3" />
+         </svg>
+        </div>
+        <h3 class="text-2xl font-bold mb-2">Professional</h3>
+        <div class="text-4xl font-bold mb-4"><span class="text-purple-400">Rp 150K</span> <span class="text-lg opacity-70">/bulan</span>
+        </div>
+       </div>
+       <ul class="space-y-3 mb-8">
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>20 GB SSD Storage</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>10 Database MySQL</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>Unlimited Bandwidth</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>SSL Certificate</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>cPanel Access</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>Daily Backup</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>Priority Support</span></li>
+       </ul><button class="package-btn w-full py-3 px-6 rounded-xl font-semibold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-300" data-package="Professional" data-price="150000"> Pilih Paket </button>
+      </div><!-- Enterprise Package -->
+      <div class="glass-effect rounded-2xl p-8 card-hover border-2 border-transparent hover:border-purple-500">
+       <div class="text-center mb-6">
+        <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center">
+         <svg class="w-12 h-12 text-white" viewbox="0 0 40 40" fill="none"><ellipse cx="20" cy="8" rx="14" ry="4" fill="white" /> <path d="M6 8V15C6 16.657 11.373 19 20 19C28.627 19 34 16.657 34 15V8" fill="white" opacity="0.95" /> <ellipse cx="20" cy="15" rx="14" ry="4" fill="white" opacity="0.8" /> <path d="M6 15V22C6 23.657 11.373 26 20 26C28.627 26 34 23.657 34 22V15" fill="white" opacity="0.95" /> <ellipse cx="20" cy="22" rx="14" ry="4" fill="white" opacity="0.6" /> <path d="M6 22V29C6 30.657 11.373 33 20 33C28.627 33 34 30.657 34 29V22" fill="white" opacity="0.95" /> <ellipse cx="20" cy="29" rx="14" ry="4" fill="white" opacity="0.4" /> <circle cx="20" cy="20" r="3" fill="white" />
+         </svg>
+        </div>
+        <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+        <div class="text-4xl font-bold mb-4"><span class="text-pink-400">Rp 300K</span> <span class="text-lg opacity-70">/bulan</span>
+        </div>
+       </div>
+       <ul class="space-y-3 mb-8">
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>50 GB SSD Storage</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>Unlimited Database</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>Unlimited Bandwidth</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>SSL Certificate</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>cPanel &amp; WHM Access</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>Hourly Backup</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>Dedicated Support</span></li>
+        <li class="flex items-start">
+         <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+         </svg><span>99.9% Uptime SLA</span></li>
+       </ul><button class="package-btn w-full py-3 px-6 rounded-xl font-semibold border-2 border-pink-400 hover:bg-pink-400 transition-all duration-300" data-package="Enterprise" data-price="300000"> Pilih Paket </button>
+      </div>
+     </div>
+    </div>
+   </section><!-- Order Modal -->
+   <div id="order-modal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/70" id="order-modal-overlay"></div>
+    <div class="absolute inset-0 flex items-center justify-center p-4">
+     <div class="glass-effect rounded-3xl p-8 max-w-md w-full relative" id="order-modal-content"><button id="close-modal" class="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+       </svg></button>
+      <h3 class="text-2xl font-bold mb-2">Formulir Pembelian</h3>
+      <p class="opacity-70 mb-6">Paket: <span id="selected-package" class="font-semibold text-indigo-400"></span></p>
+      <form id="order-form" class="space-y-5">
+       <div><label for="buyer-name" class="block mb-2 font-medium">Nama Lengkap</label> <input type="text" id="buyer-name" name="buyer-name" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-indigo-400 focus:outline-none transition-colors" placeholder="Masukkan nama lengkap">
+       <
