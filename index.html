@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Landing Page - Professional Hosting Solutions</title>
+  <title>Pixel Panel</title>
   <meta name="description" content="Penyedia layanan hosting profesional dengan teknologi terkini, support 24/7, dan harga terjangkau untuk bisnis Anda.">
   <style>
     * {
@@ -485,7 +485,7 @@
      <nav class="flex items-center justify-between">
       <div class="flex items-center space-x-2">
        <svg class="w-8 h-8 animate-float" viewbox="0 0 40 40" fill="none"><ellipse cx="20" cy="12" rx="12" ry="4" fill="#6366F1" /> <path d="M8 12V20C8 21.657 12.477 24 20 24C27.523 24 32 21.657 32 20V12" fill="#8B5CF6" /> <ellipse cx="20" cy="20" rx="12" ry="4" fill="#A78BFA" /> <path d="M8 20V28C8 29.657 12.477 32 20 32C27.523 32 32 29.657 32 28V20" fill="#8B5CF6" /> <ellipse cx="20" cy="28" rx="12" ry="4" fill="#C4B5FD" />
-       </svg><span class="text-2xl font-bold">ModernSite</span>
+       </svg><span class="text-2xl font-bold">Pixel Panel</span>
       </div>
       <div class="hidden md:flex space-x-8"><a href="#home">Home</a> <a href="#products">Produk</a> <a href="#features">Features</a> <a href="#about">Tentang</a> <a href="#faq">FAQ</a> <a href="#contact">Contact</a>
       </div><button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg transition-colors" style="background: transparent;">
@@ -495,16 +495,54 @@
     </div>
    </header><!-- Mobile Menu -->
    <div id="mobile-menu" class="fixed inset-0 z-40 hidden">
-    <div class="absolute inset-0" style="background-color: rgba(0,0,0,0.5);" id="mobile-menu-overlay"></div>
-    <div class="absolute right-0 top-0 bottom-0 w-64 glass-effect p-6 transform transition-transform duration-300">
-     <div class="flex flex-col space-y-6 mt-16"><a href="#home" class="text-lg mobile-menu-link">Home</a> <a href="#products" class="text-lg mobile-menu-link">Produk</a> <a href="#features" class="text-lg mobile-menu-link">Features</a> <a href="#about" class="text-lg mobile-menu-link">Tentang</a> <a href="#faq" class="text-lg mobile-menu-link">FAQ</a> <a href="#contact" class="text-lg mobile-menu-link">Contact</a>
+    <div class="absolute inset-0" style="background-color: rgba(0,0,0,0.8);" id="mobile-menu-overlay"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-72 p-6 transform transition-transform duration-300" style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98)); backdrop-filter: blur(20px); border-left: 1px solid rgba(255, 255, 255, 0.1); box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);">
+     <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center space-x-2">
+       <svg class="w-8 h-8" viewbox="0 0 40 40" fill="none"><ellipse cx="20" cy="12" rx="12" ry="4" fill="#6366F1" /> <path d="M8 12V20C8 21.657 12.477 24 20 24C27.523 24 32 21.657 32 20V12" fill="#8B5CF6" /> <ellipse cx="20" cy="20" rx="12" ry="4" fill="#A78BFA" /> <path d="M8 20V28C8 29.657 12.477 32 20 32C27.523 32 32 29.657 32 28V20" fill="#8B5CF6" /> <ellipse cx="20" cy="28" rx="12" ry="4" fill="#C4B5FD" />
+       </svg><span class="text-xl font-bold">ModernSite</span>
+      </div><button id="close-mobile-menu" class="w-10 h-10 rounded-full flex items-center justify-center transition-all" style="background: rgba(255, 255, 255, 0.1);">
+       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+       </svg></button>
+     </div>
+     <div class="flex flex-col space-y-1"><a href="#home" class="mobile-menu-link px-4 py-4 rounded-xl font-medium transition-all" style="background: transparent;">
+       <div class="flex items-center space-x-3">
+        <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg><span>Home</span>
+       </div></a> <a href="#products" class="mobile-menu-link px-4 py-4 rounded-xl font-medium transition-all" style="background: transparent;">
+       <div class="flex items-center space-x-3">
+        <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg><span>Produk</span>
+       </div></a> <a href="#features" class="mobile-menu-link px-4 py-4 rounded-xl font-medium transition-all" style="background: transparent;">
+       <div class="flex items-center space-x-3">
+        <svg class="w-5 h-5 text-pink-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+        </svg><span>Features</span>
+       </div></a> <a href="#about" class="mobile-menu-link px-4 py-4 rounded-xl font-medium transition-all" style="background: transparent;">
+       <div class="flex items-center space-x-3">
+        <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg><span>Tentang</span>
+       </div></a> <a href="#faq" class="mobile-menu-link px-4 py-4 rounded-xl font-medium transition-all" style="background: transparent;">
+       <div class="flex items-center space-x-3">
+        <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg><span>FAQ</span>
+       </div></a> <a href="#contact" class="mobile-menu-link px-4 py-4 rounded-xl font-medium transition-all" style="background: transparent;">
+       <div class="flex items-center space-x-3">
+        <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg><span>Contact</span>
+       </div></a>
+     </div>
+     <div class="absolute bottom-8 left-6 right-6">
+      <div class="p-4 rounded-xl" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2)); border: 1px solid rgba(99, 102, 241, 0.3);">
+       <p class="text-sm opacity-80 mb-2">Butuh bantuan?</p>
+       <p class="text-xs opacity-60">Hubungi kami 24/7</p>
+      </div>
      </div>
     </div>
    </div><!-- Hero Section -->
    <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-6">
     <div class="max-w-4xl text-center">
      <div class="animate-fade-in-up" style="animation-delay: 0.2s; opacity: 0;">
-      <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r">Selamat Datang di Masa Depan</h1>
+      <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r">Selamat Datang di Pixel Panel</h1>
      </div>
      <div class="animate-fade-in-up" style="animation-delay: 0.4s; opacity: 0;">
       <p class="text-xl md:text-2xl mb-8 opacity-80">Solusi digital modern untuk kebutuhan bisnis Anda</p>
@@ -522,8 +560,8 @@
    <section id="products" class="py-20 px-6">
     <div class="max-w-7xl mx-auto">
      <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold mb-4">Paket Panel Hosting</h2>
-      <p class="text-xl opacity-80">Pilih paket hosting yang sesuai dengan kebutuhan Anda</p>
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">Pixel Panel</h2>
+      <p class="text-xl opacity-80">Pilih paket yang sesuai dengan kebutuhan Anda</p>
      </div>
      <div class="grid grid-cols-1 md:grid-cols-3 gap-8"><!-- Starter Package -->
       <div class="glass-effect rounded-2xl p-8 card-hover border-2 border-transparent">
@@ -532,63 +570,63 @@
          <svg class="w-12 h-12 text-white" viewbox="0 0 40 40" fill="none"><ellipse cx="20" cy="12" rx="10" ry="3" fill="white" /> <path d="M10 12V18C10 19.657 13.134 21 20 21C26.866 21 30 19.657 30 18V12" fill="white" opacity="0.8" /> <ellipse cx="20" cy="18" rx="10" ry="3" fill="white" opacity="0.6" /> <path d="M10 18V24C10 25.657 13.134 27 20 27C26.866 27 30 25.657 30 24V18" fill="white" opacity="0.8" /> <ellipse cx="20" cy="24" rx="10" ry="3" fill="white" opacity="0.4" />
          </svg>
         </div>
-        <h3 class="text-2xl font-bold mb-2">Starter</h3>
-        <div class="text-4xl font-bold mb-4"><span class="text-indigo-400">Rp 50K</span> <span class="text-lg opacity-70">/bulan</span>
+        <h3 class="text-2xl font-bold mb-2">Slefbot</h3>
+        <div class="text-4xl font-bold mb-4"><span class="text-indigo-400">Rp 50K</span> <span class="text-lg opacity-70">Permanen</span>
         </div>
        </div>
        <ul class="space-y-3 mb-8">
         <li class="flex items-start">
          <svg class="w-5 h-5 text-green-400 mr-2 flex-shrink-0" style="margin-top: 0.125rem;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-         </svg><span>5 GB SSD Storage</span></li>
+         </svg><span>5 Fitur bebas request</span></li>
         <li class="flex items-start">
          <svg class="w-5 h-5 text-green-400 mr-2 flex-shrink-0" style="margin-top: 0.125rem;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-         </svg><span>1 Database MySQL</span></li>
+         </svg><span>Language JavaScript</span></li>
         <li class="flex items-start">
          <svg class="w-5 h-5 text-green-400 mr-2 flex-shrink-0" style="margin-top: 0.125rem;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-         </svg><span>Unlimited Bandwidth</span></li>
+         </svg><span>Support Termux & Pterodactyl</span></li>
         <li class="flex items-start">
          <svg class="w-5 h-5 text-green-400 mr-2 flex-shrink-0" style="margin-top: 0.125rem;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-         </svg><span>SSL Certificate</span></li>
+         </svg><span>Garansi 7 hari</span></li>
         <li class="flex items-start">
          <svg class="w-5 h-5 text-green-400 mr-2 flex-shrink-0" style="margin-top: 0.125rem;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-         </svg><span>24/7 Support</span></li>
+         </svg><span>Free Pterodactyl 7 hari</span></li>
        </ul><button class="package-btn w-full py-3 px-6 rounded-xl font-semibold border-2 border-indigo-400 transition-all duration-300" style="background-color: transparent;" data-package="Starter" data-price="50000"> Pilih Paket </button>
       </div><!-- Professional Package (Popular) -->
       <div class="glass-effect rounded-2xl p-8 card-hover border-2 border-indigo-500 relative transform md:scale-105">
        <div class="absolute rounded-full text-white px-4 py-1 text-sm font-semibold bg-indigo-500" style="top: -1rem; left: 50%; transform: translateX(-50%);">
-        POPULER
+        DISKON
        </div>
        <div class="text-center mb-6">
         <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-purple-pink flex items-center justify-center">
          <svg class="w-12 h-12 text-white" viewbox="0 0 40 40" fill="none"><ellipse cx="20" cy="10" rx="12" ry="4" fill="white" /> <path d="M8 10V17C8 18.657 12.477 21 20 21C27.523 21 32 18.657 32 17V10" fill="white" opacity="0.9" /> <ellipse cx="20" cy="17" rx="12" ry="4" fill="white" opacity="0.7" /> <path d="M8 17V24C8 25.657 12.477 28 20 28C27.523 28 32 25.657 32 24V17" fill="white" opacity="0.9" /> <ellipse cx="20" cy="24" rx="12" ry="4" fill="white" opacity="0.5" /> <path d="M8 24V31C8 32.657 12.477 35 20 35C27.523 35 32 32.657 32 31V24" fill="white" opacity="0.9" /> <ellipse cx="20" cy="31" rx="12" ry="4" fill="white" opacity="0.3" />
          </svg>
         </div>
-        <h3 class="text-2xl font-bold mb-2">Professional</h3>
-        <div class="text-4xl font-bold mb-4"><span class="text-purple-400">Rp 150K</span> <span class="text-lg opacity-70">/bulan</span>
+        <h3 class="text-2xl font-bold mb-2">Pterodactyl</h3>
+        <div class="text-4xl font-bold mb-4"><span class="text-purple-400">Rp 10K</span> <span class="text-lg opacity-70">/bulan</span>
         </div>
        </div>
        <ul class="space-y-3 mb-8">
         <li class="flex items-start">
          <svg class="w-5 h-5 text-green-400 mr-2 flex-shrink-0" style="margin-top: 0.125rem;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-         </svg><span>20 GB SSD Storage</span></li>
+         </svg><span>Unlimited Memory</span></li>
         <li class="flex items-start">
          <svg class="w-5 h-5 text-green-400 mr-2 flex-shrink-0" style="margin-top: 0.125rem;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-         </svg><span>10 Database MySQL</span></li>
+         </svg><span>Ultimate CPU</span></li>
         <li class="flex items-start">
          <svg class="w-5 h-5 text-green-400 mr-2 flex-shrink-0" style="margin-top: 0.125rem;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-         </svg><span>Unlimited Bandwidth</span></li>
+         </svg><span>Unlimited Disk</span></li>
         <li class="flex items-start">
          <svg class="w-5 h-5 text-green-400 mr-2 flex-shrink-0" style="margin-top: 0.125rem;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-         </svg><span>SSL Certificate</span></li>
+         </svg><span>Support JavaScript</span></li>
         <li class="flex items-start">
          <svg class="w-5 h-5 text-green-400 mr-2 flex-shrink-0" style="margin-top: 0.125rem;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-         </svg><span>cPanel Access</span></li>
+         </svg><span>Garansi Enable</span></li>
         <li class="flex items-start">
          <svg class="w-5 h-5 text-green-400 mr-2 flex-shrink-0" style="margin-top: 0.125rem;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-         </svg><span>Daily Backup</span></li>
+         </svg><span>Anti Down</span></li>
         <li class="flex items-start">
          <svg class="w-5 h-5 text-green-400 mr-2 flex-shrink-0" style="margin-top: 0.125rem;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-         </svg><span>Priority Support</span></li>
+         </svg><span>Security Enable</span></li>
        </ul><button class="package-btn w-full py-3 px-6 rounded-xl font-semibold bg-gradient-purple-pink transition-all duration-300" data-package="Professional" data-price="150000"> Pilih Paket </button>
       </div><!-- Enterprise Package -->
       <div class="glass-effect rounded-2xl p-8 card-hover border-2 border-transparent">
@@ -597,7 +635,7 @@
          <svg class="w-12 h-12 text-white" viewbox="0 0 40 40" fill="none"><ellipse cx="20" cy="8" rx="14" ry="4" fill="white" /> <path d="M6 8V15C6 16.657 11.373 19 20 19C28.627 19 34 16.657 34 15V8" fill="white" opacity="0.95" /> <ellipse cx="20" cy="15" rx="14" ry="4" fill="white" opacity="0.8" /> <path d="M6 15V22C6 23.657 11.373 26 20 26C28.627 26 34 23.657 34 22V15" fill="white" opacity="0.95" /> <ellipse cx="20" cy="22" rx="14" ry="4" fill="white" opacity="0.6" /> <path d="M6 22V29C6 30.657 11.373 33 20 33C28.627 33 34 30.657 34 29V22" fill="white" opacity="0.95" /> <ellipse cx="20" cy="29" rx="14" ry="4" fill="white" opacity="0.4" /> <circle cx="20" cy="20" r="3" fill="white" />
          </svg>
         </div>
-        <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+        <h3 class="text-2xl font-bold mb-2">Vps Ocean</h3>
         <div class="text-4xl font-bold mb-4"><span class="text-pink-400">Rp 300K</span> <span class="text-lg opacity-70">/bulan</span>
         </div>
        </div>
@@ -724,12 +762,12 @@
     <div class="max-w-7xl mx-auto">
      <div class="text-center mb-16">
       <h2 class="text-4xl md:text-5xl font-bold mb-4">Tentang Kami</h2>
-      <p class="text-xl opacity-80">Solusi hosting terpercaya untuk bisnis digital Anda</p>
+      <p class="text-xl opacity-80">Solusi terpercaya untuk bisnis digital Anda hanya di  Pixel Panel</p>
      </div>
      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
       <div>
        <h3 class="text-3xl font-bold mb-6">Siapa Kami?</h3>
-       <p class="text-lg opacity-80 mb-4">ModernSite adalah penyedia layanan hosting panel profesional yang berkomitmen memberikan solusi terbaik untuk kebutuhan website Anda. Dengan teknologi terkini dan tim support yang berpengalaman, kami siap membantu bisnis Anda berkembang di dunia digital.</p>
+       <p class="text-lg opacity-80 mb-4">Pixel Panel adalah penyedia layanan profesional yang berkomitmen memberikan solusi terbaik untuk kebutuhan Anda. Dengan teknologi terkini dan tim support yang berpengalaman, kami siap membantu bisnis Anda berkembang di dunia digital.</p>
        <p class="text-lg opacity-80 mb-4">Sejak berdiri, kami telah melayani ribuan klien dari berbagai industri, mulai dari startup hingga perusahaan besar. Kepercayaan dan kepuasan pelanggan adalah prioritas utama kami.</p>
       </div>
       <div class="glass-effect rounded-3xl p-8">
@@ -761,7 +799,7 @@
          </div>
          <div>
           <h4 class="text-xl font-bold mb-2">Keamanan Terjamin</h4>
-          <p class="opacity-80">SSL gratis dan backup rutin untuk data Anda</p>
+          <p class="opacity-80">Backup rutin untuk data Anda</p>
          </div>
         </div>
        </div>
@@ -774,7 +812,7 @@
         </svg>
        </div>
        <h3 class="text-2xl font-bold mb-4">Visi Kami</h3>
-       <p class="opacity-80">Menjadi penyedia layanan hosting terdepan di Indonesia yang menghadirkan solusi digital berkualitas tinggi, terjangkau, dan dapat diandalkan untuk semua kalangan bisnis.</p>
+       <p class="opacity-80">Menjadi penyedia layanan terdepan di Indonesia yang menghadirkan solusi digital berkualitas tinggi, terjangkau, dan dapat diandalkan untuk semua kalangan bisnis.</p>
       </div>
       <div class="glass-effect rounded-2xl p-8">
        <div class="w-16 h-16 rounded-xl bg-gradient-purple-pink flex items-center justify-center mb-6">
@@ -783,7 +821,7 @@
        </div>
        <h3 class="text-2xl font-bold mb-4">Misi Kami</h3>
        <ul class="space-y-3 opacity-80">
-        <li class="flex items-start"><span class="mr-2">•</span> <span>Menyediakan infrastruktur hosting yang stabil dan cepat</span></li>
+        <li class="flex items-start"><span class="mr-2">•</span> <span>Menyediakan infrastruktur Jasa yang stabil dan cepat</span></li>
         <li class="flex items-start"><span class="mr-2">•</span> <span>Memberikan layanan support terbaik kepada setiap pelanggan</span></li>
         <li class="flex items-start"><span class="mr-2">•</span> <span>Terus berinovasi mengikuti perkembangan teknologi</span></li>
        </ul>
@@ -817,7 +855,7 @@
       </div>
       <div class="glass-effect rounded-xl p-6 text-center">
        <div class="text-4xl mb-4">
-        ❤️
+        ��️
        </div>
        <h4 class="text-xl font-bold mb-2">Kepuasan</h4>
        <p class="opacity-70 text-sm">Kepuasan pelanggan adalah prioritas utama</p>
@@ -986,6 +1024,31 @@
       link.addEventListener('click', () => {
         mobileMenu.classList.add('hidden');
       });
+      
+      link.addEventListener('mouseenter', () => {
+        link.style.background = 'rgba(99, 102, 241, 0.2)';
+        link.style.transform = 'translateX(-5px)';
+      });
+      
+      link.addEventListener('mouseleave', () => {
+        link.style.background = 'transparent';
+        link.style.transform = 'translateX(0)';
+      });
+    });
+
+    const closeMobileMenuBtn = document.getElementById('close-mobile-menu');
+    closeMobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+    });
+
+    closeMobileMenuBtn.addEventListener('mouseenter', () => {
+      closeMobileMenuBtn.style.background = 'rgba(239, 68, 68, 0.3)';
+      closeMobileMenuBtn.style.transform = 'rotate(90deg)';
+    });
+
+    closeMobileMenuBtn.addEventListener('mouseleave', () => {
+      closeMobileMenuBtn.style.background = 'rgba(255, 255, 255, 0.1)';
+      closeMobileMenuBtn.style.transform = 'rotate(0deg)';
     });
 
     // Animated counter
@@ -1230,5 +1293,5 @@
       });
     });
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9adba34f14528995',t:'MTc2NTY5MzY3My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9adbcce396d234ae',t:'MTc2NTY5NTM3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
