@@ -3,19 +3,52 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout - Tokopedia</title>
+  <title>Tokopedia - Belanja Online</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
     
-    * {
-      box-sizing: border-box;
+    body {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    
+    .product-card {
+      transition: all 0.2s ease;
+      max-width: 100%;
+      cursor: pointer;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    #app {
+      overscroll-behavior: contain;
+    }
+
+    /* Prevent horizontal overflow */
+    #dashboard-page, #checkout-page {
+      max-width: 100%;
+      overflow-x: hidden;
     }
     
     .payment-option {
@@ -71,298 +104,587 @@
       font-weight: 600;
       letter-spacing: 0.3px;
     }
+
+    .category-btn {
+      transition: all 0.2s ease;
+    }
+
+    .category-btn:hover {
+      background-color: #E8F6ED;
+      color: #00AA5B;
+    }
   </style>
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
   <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
  </head>
  <body class="h-full">
-  <div id="app" class="w-full h-full overflow-auto" style="background-color: #F0F3F7;"><!-- Header -->
-   <header class="w-full" style="background-color: #42B549; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
-    <div class="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between">
-     <div class="flex items-center gap-4">
-      <h1 class="text-2xl font-bold" style="color: #FFFFFF; letter-spacing: -0.5px;">Tokopedia</h1><span class="text-sm font-medium" style="color: rgba(255,255,255,0.9);">Checkout</span>
+  <div id="app" class="w-full h-full overflow-y-auto overflow-x-hidden" style="background-color: #F0F3F7; position: fixed; top: 0; left: 0; right: 0; bottom: 0; -webkit-overflow-scrolling: touch;"><!-- Dashboard Page -->
+   <div id="dashboard-page" style="min-height: 100%; width: 100%;"><!-- Header -->
+    <header class="w-full" style="background-color: #FFFFFF; box-shadow: 0 2px 8px rgba(0,0,0,0.06); min-width: 100%;">
+     <div class="max-w-7xl mx-auto px-6"><!-- Main Header -->
+      <div class="flex items-center gap-4 py-3"><!-- Search Bar -->
+       <div class="flex-1">
+        <div class="relative"><input id="search-input" type="text" placeholder="Cari produk..." class="w-full py-2.5 pl-4 pr-12 rounded-lg text-sm outline-none transition-all focus:ring-2 focus:ring-green-500" style="background-color: #F0F3F7; border: 1px solid #E5E7E9; color: #31353BAD;"> <button id="search-btn" class="absolute right-3 top-1/2 -translate-y-1/2">
+          <svg class="w-5 h-5" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg></button>
+        </div>
+       </div><!-- Right Icons -->
+       <div class="flex items-center gap-5 flex-shrink-0"><!-- Cart with Badge --> <button id="cart-btn" class="relative hover:opacity-70 transition-opacity">
+         <svg class="w-6 h-6" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+         </svg><span class="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center font-bold" style="background-color: #FF6100; color: #FFFFFF; font-size: 9px;">2</span> </button> <!-- Email Icon --> <button id="email-btn" class="hover:opacity-70 transition-opacity">
+         <svg class="w-6 h-6" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+         </svg></button> <!-- Notification Bell --> <button id="notification-btn" class="hover:opacity-70 transition-opacity">
+         <svg class="w-6 h-6" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+         </svg></button>
+       </div>
+      </div>
      </div>
-     <div class="flex items-center gap-2 text-sm" style="color: #FFFFFF;">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg><span>Bantuan</span>
-     </div>
-    </div>
-   </header><!-- Main Content -->
-   <main class="w-full" style="background-color: #F0F3F7;">
-    <div class="max-w-7xl mx-auto px-6 py-6">
-     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4"><!-- Left Column -->
-      <div class="lg:col-span-2 space-y-3"><!-- Shipping Address -->
-       <div class="rounded-lg p-5 shadow-sm" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;">
-        <div class="flex items-center justify-between mb-4">
-         <div class="flex items-center gap-2">
-          <svg class="w-5 h-5" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          <h3 class="text-base font-bold" style="color: #31353BAD;">Alamat Pengiriman</h3>
-         </div><button class="text-sm font-semibold px-3 py-1 rounded" style="color: #00AA5B; border: 1px solid #00AA5B;">Pilih Alamat Lain</button>
-        </div>
-        <div class="border-t pt-4" style="border-color: #E5E7E9;">
-         <div class="flex items-start justify-between">
-          <div>
-           <div class="flex items-center gap-2 mb-1">
-            <p class="font-bold text-sm" style="color: #31353BAD;">Budi Santoso</p><span class="badge" style="background-color: #E8F6ED; color: #00AA5B;">Utama</span>
-           </div>
-           <p class="text-sm mb-2" style="color: #6D7588;">081234567890</p>
-           <p class="text-sm" style="color: #31353BAD; line-height: 1.5;">Jl. Merdeka No. 123, RT 01/RW 05, Kelurahan Menteng, Kecamatan Menteng, Jakarta Pusat, DKI Jakarta, 10310</p>
-          </div>
+    </header><!-- Main Content -->
+    <main class="w-full" style="background-color: #F0F3F7; min-width: 100%;">
+     <div class="max-w-7xl mx-auto px-6 py-5"><!-- Banner Promo -->
+      <div class="rounded-xl overflow-hidden mb-6 shadow-md" style="background: linear-gradient(135deg, #03AC0E 0%, #00D68F 100%);">
+       <div class="flex items-center justify-between px-8 md:px-12 py-8">
+        <div class="flex-1">
+         <div class="mb-3">
+          <h2 class="text-2xl md:text-3xl font-bold" style="color: #FFFFFF; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">Flash Sale Hari Ini</h2>
          </div>
-        </div>
-       </div><!-- Products from Seller -->
-       <div class="rounded-lg shadow-sm" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;">
-        <div class="p-5 border-b" style="border-color: #E5E7E9;">
-         <div class="flex items-center gap-2 mb-3">
-          <svg class="w-5 h-5" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-          </svg>
-          <h3 class="text-base font-bold" style="color: #31353BAD;">Toko Elektronik Sejahtera</h3><span class="badge" style="background-color: #E8F6ED; color: #00AA5B;">⭐ Power Merchant</span>
-         </div>
-         <div class="flex items-center gap-2 text-xs" style="color: #6D7588;">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-          </svg><span>Jakarta Pusat</span>
-         </div>
-        </div><!-- Product Item 1 -->
-        <div class="p-5 border-b" style="border-color: #E5E7E9;">
-         <div class="flex gap-4">
-          <div class="w-16 h-16 rounded flex-shrink-0 overflow-hidden" style="background-color: #F0F3F7; border: 1px solid #E5E7E9;"><img src="https://files.catbox.moe/n2ltcs.jpeg" alt="Smartphone Android Premium" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
-          </div>
-          <div class="flex-1">
-           <h4 class="font-medium text-sm mb-1" style="color: #31353BAD;">Smartphone Android Premium 128GB</h4>
-           <p class="text-xs mb-2" style="color: #6D7588;">Varian: Midnight Black, RAM 8GB</p>
-           <div class="flex items-center justify-between mt-3">
-            <p class="font-bold text-sm" style="color: #31353BAD;">Rp3.499.000</p>
-            <div class="flex items-center gap-3">
-             <p class="text-xs" style="color: #6D7588;">1 barang (500 g)</p>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div><!-- Product Item 2 -->
-        <div class="p-5 border-b" style="border-color: #E5E7E9;">
-         <div class="flex gap-4">
-          <div class="w-16 h-16 rounded flex-shrink-0 overflow-hidden" style="background-color: #F0F3F7; border: 1px solid #E5E7E9;"><img src="https://files.catbox.moe/4c8qs3.jpeg" alt="Wireless Earbuds Premium" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
-          </div>
-          <div class="flex-1">
-           <h4 class="font-medium text-sm mb-1" style="color: #31353BAD;">Wireless Earbuds Premium with ANC</h4>
-           <p class="text-xs mb-2" style="color: #6D7588;">Warna: Pearl White</p>
-           <div class="flex items-center justify-between mt-3">
-            <p class="font-bold text-sm" style="color: #31353BAD;">Rp899.000</p>
-            <div class="flex items-center gap-3">
-             <p class="text-xs" style="color: #6D7588;">2 barang (200 g)</p>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div><!-- Shipping Method -->
-        <div class="p-5">
-         <div class="flex items-start justify-between">
-          <div class="flex items-center gap-2">
-           <svg class="w-5 h-5" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" stroke-width="2" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1-1V9m0 0h5l3 3v4" />
-           </svg>
-           <div>
-            <p class="text-sm font-semibold" style="color: #31353BAD;">Reguler (JNE REG)</p>
-            <p class="text-xs" style="color: #6D7588;">Estimasi tiba 2-3 hari</p>
-           </div>
-          </div><button class="text-sm font-semibold" style="color: #00AA5B;">Ubah</button>
-         </div>
-        </div>
-       </div><!-- Payment Method -->
-       <div class="rounded-lg shadow-sm" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;">
-        <div class="p-5 border-b" style="border-color: #E5E7E9;">
-         <div class="flex items-center gap-2">
-          <svg class="w-5 h-5" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke-width="2" /> <path d="M2 10h20" stroke-width="2" />
-          </svg>
-          <h3 class="text-base font-bold" style="color: #31353BAD;">Metode Pembayaran</h3>
-         </div>
-        </div>
-        <div><!-- Instant Payment Section -->
-         <div class="border-b" style="border-color: #E5E7E9;"><button class="accordion-button w-full px-5 py-4 flex items-center justify-between text-left" onclick="toggleSection('instant')"> <span class="font-semibold text-sm" style="color: #31353BAD;">Pembayaran Instan</span>
-           <svg id="instant-arrow" class="w-4 h-4 transition-transform" style="color: #31353BAD; transform: rotate(180deg);" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-           </svg></button>
-          <div id="instant-section" class="px-5 pb-4"><!-- GoPay -->
-           <div class="payment-option border rounded-lg p-3 mb-2 cursor-pointer" style="border-color: #00AA5B; background-color: #F0FDF4;" data-payment="gopay">
-            <div class="flex items-center justify-between">
-             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #00AED6;"><span class="text-white font-bold text-xs">GO</span>
-              </div>
-              <div>
-               <p class="font-semibold text-sm" style="color: #31353BAD;">GoPay</p>
-               <p class="text-xs" style="color: #6D7588;">Cashback 10rb, Langsung Cair</p>
-              </div>
-             </div>
-             <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #00AA5B;">
-              <div class="payment-radio w-2.5 h-2.5 rounded-full" style="background-color: #00AA5B;"></div>
-             </div>
-            </div>
-           </div><!-- OVO -->
-           <div class="payment-option border rounded-lg p-3 mb-2 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="ovo">
-            <div class="flex items-center justify-between">
-             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #4C2885;"><span class="text-white font-bold text-xs">OVO</span>
-              </div>
-              <div>
-               <p class="font-semibold text-sm" style="color: #31353BAD;">OVO</p>
-               <p class="text-xs" style="color: #6D7588;">Bisa Pakai Poin OVO</p>
-              </div>
-             </div>
-             <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
-              <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
-             </div>
-            </div>
-           </div><!-- ShopeePay -->
-           <div class="payment-option border rounded-lg p-3 mb-2 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="shopeepay">
-            <div class="flex items-center justify-between">
-             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #EE4D2D;"><span class="text-white font-bold text-xs">SP</span>
-              </div>
-              <div>
-               <p class="font-semibold text-sm" style="color: #31353BAD;">ShopeePay</p>
-               <p class="text-xs" style="color: #6D7588;">Cashback hingga Rp50.000</p>
-              </div>
-             </div>
-             <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
-              <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
-             </div>
-            </div>
-           </div><!-- DANA -->
-           <div class="payment-option border rounded-lg p-3 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="dana">
-            <div class="flex items-center justify-between">
-             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #108EE9;"><span class="text-white font-bold text-xs">DANA</span>
-              </div>
-              <div>
-               <p class="font-semibold text-sm" style="color: #31353BAD;">DANA</p>
-               <p class="text-xs" style="color: #6D7588;">Promo Cashback 15%</p>
-              </div>
-             </div>
-             <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
-              <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
-             </div>
-            </div>
-           </div>
-          </div>
-         </div><!-- Transfer Bank Section -->
-         <div class="border-b" style="border-color: #E5E7E9;"><button class="accordion-button w-full px-5 py-4 flex items-center justify-between text-left" onclick="toggleSection('bank')"> <span class="font-semibold text-sm" style="color: #31353BAD;">Transfer Bank</span>
-           <svg id="bank-arrow" class="w-4 h-4 transition-transform" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-           </svg></button>
-          <div id="bank-section" class="px-5 pb-4 hidden"><!-- BCA -->
-           <div class="payment-option border rounded-lg p-3 mb-2 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="bca">
-            <div class="flex items-center justify-between">
-             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #003E7E;"><span class="text-white font-bold text-xs">BCA</span>
-              </div>
-              <div>
-               <p class="font-semibold text-sm" style="color: #31353BAD;">BCA Virtual Account</p>
-               <p class="text-xs" style="color: #6D7588;">Dicek Otomatis</p>
-              </div>
-             </div>
-             <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
-              <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
-             </div>
-            </div>
-           </div><!-- Mandiri -->
-           <div class="payment-option border rounded-lg p-3 mb-2 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="mandiri">
-            <div class="flex items-center justify-between">
-             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #003D79;"><span class="text-white font-bold text-xs">MDR</span>
-              </div>
-              <div>
-               <p class="font-semibold text-sm" style="color: #31353BAD;">Mandiri Virtual Account</p>
-               <p class="text-xs" style="color: #6D7588;">Dicek Otomatis</p>
-              </div>
-             </div>
-             <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
-              <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
-             </div>
-            </div>
-           </div><!-- BNI -->
-           <div class="payment-option border rounded-lg p-3 mb-2 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="bni">
-            <div class="flex items-center justify-between">
-             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #F37021;"><span class="text-white font-bold text-xs">BNI</span>
-              </div>
-              <div>
-               <p class="font-semibold text-sm" style="color: #31353BAD;">BNI Virtual Account</p>
-               <p class="text-xs" style="color: #6D7588;">Dicek Otomatis</p>
-              </div>
-             </div>
-             <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
-              <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
-             </div>
-            </div>
-           </div><!-- BRI -->
-           <div class="payment-option border rounded-lg p-3 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="bri">
-            <div class="flex items-center justify-between">
-             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #00529C;"><span class="text-white font-bold text-xs">BRI</span>
-              </div>
-              <div>
-               <p class="font-semibold text-sm" style="color: #31353BAD;">BRI Virtual Account</p>
-               <p class="text-xs" style="color: #6D7588;">Dicek Otomatis</p>
-              </div>
-             </div>
-             <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
-              <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
-             </div>
-            </div>
-           </div>
-          </div>
-         </div><!-- COD Section -->
-         <div><button class="accordion-button w-full px-5 py-4 flex items-center justify-between text-left" onclick="toggleSection('cod')"> <span class="font-semibold text-sm" style="color: #31353BAD;">Bayar di Tempat (COD)</span>
-           <svg id="cod-arrow" class="w-4 h-4 transition-transform" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-           </svg></button>
-          <div id="cod-section" class="px-5 pb-4 hidden">
-           <div class="payment-option border rounded-lg p-3 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="cod">
-            <div class="flex items-center justify-between">
-             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #F0F3F7; border: 1px solid #E5E7E9;">
-               <svg class="w-5 h-5" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke-width="2" stroke-linecap="round" />
-               </svg>
-              </div>
-              <div>
-               <p class="font-semibold text-sm" style="color: #31353BAD;">Bayar di Tempat</p>
-               <p class="text-xs" style="color: #6D7588;">Bayar saat barang diterima</p>
-              </div>
-             </div>
-             <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
-              <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
-             </div>
-            </div>
-           </div>
-          </div>
-         </div>
+         <p class="text-base md:text-lg mb-5" style="color: rgba(255,255,255,0.95); font-weight: 500;">Diskon hingga 70% untuk produk pilihan</p><button id="promo-btn" class="px-6 py-2.5 rounded-lg font-bold text-sm transition-all hover:scale-105" style="background-color: #FFFFFF; color: #03AC0E; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"> Belanja Sekarang </button>
         </div>
        </div>
-      </div><!-- Right Column - Summary -->
-      <div class="lg:col-span-1">
-       <div class="rounded-lg p-5 shadow-sm sticky top-6" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;">
-        <h3 class="text-base font-bold mb-4" style="color: #31353BAD;">Ringkasan Belanja</h3>
-        <div class="space-y-2.5 mb-4 pb-4 border-b" style="border-color: #E5E7E9;">
-         <div class="flex justify-between text-sm"><span style="color: #6D7588;">Total Harga (3 Barang)</span> <span style="color: #31353BAD;">Rp5.297.000</span>
-         </div>
-         <div class="flex justify-between text-sm"><span style="color: #6D7588;">Total Ongkos Kirim (700 gr)</span> <span style="color: #31353BAD;">Rp15.000</span>
-         </div>
+      </div><!-- Filter & Sort Bar -->
+      <div class="rounded-lg p-4 mb-5 shadow-sm" style="background-color: #FFFFFF;">
+       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"><!-- Filter Buttons -->
+        <div class="flex items-center gap-2 flex-wrap"><button id="filter-btn" class="px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+          </svg> Filter </button> <button id="location-btn" class="px-4 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;"> Lokasi </button> <button id="price-btn" class="px-4 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;"> Harga </button> <button id="rating-btn" class="px-4 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;"> Rating </button> <button id="category-btn" class="px-4 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;"> Kategori </button>
+        </div><!-- Sort Dropdown -->
+        <div class="flex items-center gap-2"><span class="text-sm font-medium whitespace-nowrap" style="color: #6D7588;">Urutkan:</span> <select id="sort-select" class="px-4 py-2.5 rounded-lg text-sm font-medium outline-none cursor-pointer transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;"> <option>Paling Sesuai</option> <option>Harga Terendah</option> <option>Harga Tertinggi</option> <option>Terbaru</option> <option>Rating Tertinggi</option> </select>
         </div>
-        <div class="flex justify-between items-center mb-4 pb-4 border-b" style="border-color: #E5E7E9;"><span class="font-bold text-sm" style="color: #31353BAD;">Total Belanja</span> <span class="text-lg font-bold" style="color: #FF6100;">Rp5.312.000</span>
-        </div><button id="checkout-btn" class="w-full py-3.5 rounded-lg font-bold text-base transition-all hover:opacity-90" style="background-color: #00AA5B; color: #FFFFFF; box-shadow: 0 1px 2px rgba(0,0,0,0.1);"> Bayar </button>
-        <div class="mt-4 p-3 rounded-lg" style="background-color: #FFF9E6; border: 1px solid #FFC700;">
-         <div class="flex gap-2">
-          <svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color: #F5A623;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-          </svg>
-          <p class="text-xs leading-relaxed" style="color: #6D7588;">Dengan melakukan pembayaran, kamu menyetujui <span style="color: #00AA5B; font-weight: 600;">Syarat dan Ketentuan</span> yang berlaku</p>
+       </div>
+      </div><!-- Products Grid -->
+      <div>
+       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3"><!-- Product 1 -->
+        <div class="product-card rounded-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;" data-product="{&quot;name&quot;:&quot;Velg Rcb CT600&quot;,&quot;variant&quot;:&quot;Ring 17, Chrome&quot;,&quot;price&quot;:&quot;Rp1.000.000&quot;,&quot;weight&quot;:&quot;3000 g&quot;,&quot;image&quot;:&quot;https://files.catbox.moe/ot7ykc.jpg&quot;}">
+         <div class="relative">
+          <div class="w-full aspect-square overflow-hidden" style="background-color: #F8F9FA;"><img src="https://files.catbox.moe/ot7ykc.jpg" alt="Velg Rcb CT600" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
+          </div>
+          <div class="absolute top-2 left-2"><span class="px-2 py-0.5 rounded text-xs font-bold" style="background-color: #FF6100; color: #FFFFFF;">PROMO</span>
+          </div>
+         </div>
+         <div class="p-2.5">
+          <h4 class="text-xs mb-1.5" style="color: #31353BAD; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; min-height: 33px;">Velg Rcb CT600</h4>
+          <p class="text-sm font-bold mb-1" style="color: #31353BAD;">Rp1.000.000</p>
+          <div class="flex items-center gap-1 mb-2"><span class="text-xs font-bold" style="color: #31353BAD;">⭐ 4.8</span> <span class="text-xs" style="color: #6D7588;">| Terjual 120+</span>
+          </div>
+          <div class="flex items-center gap-1">
+           <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+           </svg>
+           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+          </div>
+         </div>
+        </div><!-- Product 2 -->
+        <div class="product-card rounded-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;" data-product="{&quot;name&quot;:&quot;Velg Delkevic Bintang Laut Chrome&quot;,&quot;variant&quot;:&quot;Ring 17, Chrome&quot;,&quot;price&quot;:&quot;Rp1.000.000&quot;,&quot;weight&quot;:&quot;3000 g&quot;,&quot;image&quot;:&quot;https://files.catbox.moe/ya4xa5.jpg&quot;}">
+         <div class="relative">
+          <div class="w-full aspect-square overflow-hidden" style="background-color: #F8F9FA;"><img src="https://files.catbox.moe/ya4xa5.jpg" alt="Velg Delkevic Bintang Laut Chrome" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
+          </div>
+          <div class="absolute top-2 left-2"><span class="px-2 py-0.5 rounded text-xs font-bold" style="background-color: #FF6100; color: #FFFFFF;">PROMO</span>
+          </div>
+         </div>
+         <div class="p-2.5">
+          <h4 class="text-xs mb-1.5" style="color: #31353BAD; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; min-height: 33px;">Velg Delkevic Bintang Laut Chrome</h4>
+          <p class="text-sm font-bold mb-1" style="color: #31353BAD;">Rp1.000.000</p>
+          <div class="flex items-center gap-1 mb-2"><span class="text-xs font-bold" style="color: #31353BAD;">⭐ 4.9</span> <span class="text-xs" style="color: #6D7588;">| Terjual 350+</span>
+          </div>
+          <div class="flex items-center gap-1">
+           <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+           </svg>
+           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+          </div>
+         </div>
+        </div><!-- Product 3 -->
+        <div class="product-card rounded-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;" data-product="{&quot;name&quot;:&quot;Velg Vnd Bintang Chrome&quot;,&quot;variant&quot;:&quot;Ring 17, Chrome&quot;,&quot;price&quot;:&quot;Rp1.000.000&quot;,&quot;weight&quot;:&quot;3000 g&quot;,&quot;image&quot;:&quot;https://files.catbox.moe/pi37lz.jpg&quot;}">
+         <div class="relative">
+          <div class="w-full aspect-square overflow-hidden" style="background-color: #F8F9FA;"><img src="https://files.catbox.moe/pi37lz.jpg" alt="Velg Vnd Bintang Chrome" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
+          </div>
+          <div class="absolute top-2 left-2"><span class="px-2 py-0.5 rounded text-xs font-bold" style="background-color: #FF6100; color: #FFFFFF;">PROMO</span>
+          </div>
+         </div>
+         <div class="p-2.5">
+          <h4 class="text-xs mb-1.5" style="color: #31353BAD; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; min-height: 33px;">Velg Vnd Bintang Chrome</h4>
+          <p class="text-sm font-bold mb-1" style="color: #31353BAD;">Rp1.000.000</p>
+          <div class="flex items-center gap-1 mb-2"><span class="text-xs font-bold" style="color: #31353BAD;">⭐ 4.7</span> <span class="text-xs" style="color: #6D7588;">| Terjual 280+</span>
+          </div>
+          <div class="flex items-center gap-1">
+           <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+           </svg>
+           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+          </div>
+         </div>
+        </div><!-- Product 4 -->
+        <div class="product-card rounded-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;" data-product="{&quot;name&quot;:&quot;Premium P10 Hitam&quot;,&quot;variant&quot;:&quot;Ring 17, Hitam&quot;,&quot;price&quot;:&quot;Rp1.000.000&quot;,&quot;weight&quot;:&quot;3000 g&quot;,&quot;image&quot;:&quot;https://files.catbox.moe/aocwzy.jpg&quot;}">
+         <div class="relative">
+          <div class="w-full aspect-square overflow-hidden" style="background-color: #F8F9FA;"><img src="https://files.catbox.moe/aocwzy.jpg" alt="Premium P10 Hitam" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
+          </div>
+          <div class="absolute top-2 left-2"><span class="px-2 py-0.5 rounded text-xs font-bold" style="background-color: #FF6100; color: #FFFFFF;">PROMO</span>
+          </div>
+         </div>
+         <div class="p-2.5">
+          <h4 class="text-xs mb-1.5" style="color: #31353BAD; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; min-height: 33px;">Premium P10 Hitam</h4>
+          <p class="text-sm font-bold mb-1" style="color: #31353BAD;">Rp1.000.000</p>
+          <div class="flex items-center gap-1 mb-2"><span class="text-xs font-bold" style="color: #31353BAD;">⭐ 4.9</span> <span class="text-xs" style="color: #6D7588;">| Terjual 500+</span>
+          </div>
+          <div class="flex items-center gap-1">
+           <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+           </svg>
+           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+          </div>
+         </div>
+        </div><!-- Product 5 -->
+        <div class="product-card rounded-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;" data-product="{&quot;name&quot;:&quot;Premium P10 Chrome&quot;,&quot;variant&quot;:&quot;Ring 17, Chrome&quot;,&quot;price&quot;:&quot;Rp1.000.000&quot;,&quot;weight&quot;:&quot;3000 g&quot;,&quot;image&quot;:&quot;https://files.catbox.moe/231cs0.jpg&quot;}">
+         <div class="relative">
+          <div class="w-full aspect-square overflow-hidden" style="background-color: #F8F9FA;"><img src="https://files.catbox.moe/231cs0.jpg" alt="Premium P10 Chrome" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
+          </div>
+          <div class="absolute top-2 left-2"><span class="px-2 py-0.5 rounded text-xs font-bold" style="background-color: #FF6100; color: #FFFFFF;">PROMO</span>
+          </div>
+         </div>
+         <div class="p-2.5">
+          <h4 class="text-xs mb-1.5" style="color: #31353BAD; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; min-height: 33px;">Premium P10 Chrome</h4>
+          <p class="text-sm font-bold mb-1" style="color: #31353BAD;">Rp1.000.000</p>
+          <div class="flex items-center gap-1 mb-2"><span class="text-xs font-bold" style="color: #31353BAD;">⭐ 4.8</span> <span class="text-xs" style="color: #6D7588;">| Terjual 210+</span>
+          </div>
+          <div class="flex items-center gap-1">
+           <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+           </svg>
+           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+          </div>
+         </div>
+        </div><!-- Product 6 -->
+        <div class="product-card rounded-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;" data-product="{&quot;name&quot;:&quot;Velg Vnd DSpeed+Ban Chrome&quot;,&quot;variant&quot;:&quot;Ring 17, Chrome + Ban&quot;,&quot;price&quot;:&quot;Rp1.250.000&quot;,&quot;weight&quot;:&quot;4500 g&quot;,&quot;image&quot;:&quot;https://files.catbox.moe/lxyo7o.jpg&quot;}">
+         <div class="relative">
+          <div class="w-full aspect-square overflow-hidden" style="background-color: #F8F9FA;"><img src="https://files.catbox.moe/lxyo7o.jpg" alt="Velg Vnd DSpeed+Ban Chrome" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
+          </div>
+          <div class="absolute top-2 left-2"><span class="px-2 py-0.5 rounded text-xs font-bold" style="background-color: #FF6100; color: #FFFFFF;">PAKET</span>
+          </div>
+         </div>
+         <div class="p-2.5">
+          <h4 class="text-xs mb-1.5" style="color: #31353BAD; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; min-height: 33px;">Velg Vnd DSpeed+Ban Chrome</h4>
+          <p class="text-sm font-bold mb-1" style="color: #31353BAD;">Rp1.250.000</p>
+          <div class="flex items-center gap-1 mb-2"><span class="text-xs font-bold" style="color: #31353BAD;">⭐ 4.7</span> <span class="text-xs" style="color: #6D7588;">| Terjual 150+</span>
+          </div>
+          <div class="flex items-center gap-1">
+           <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+           </svg>
+           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+          </div>
+         </div>
+        </div><!-- Product 7 -->
+        <div class="product-card rounded-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;" data-product="{&quot;name&quot;:&quot;Velg Delkevic Bintang Laut+Ban Chrome&quot;,&quot;variant&quot;:&quot;Ring 17, Chrome + Ban&quot;,&quot;price&quot;:&quot;Rp1.250.000&quot;,&quot;weight&quot;:&quot;4500 g&quot;,&quot;image&quot;:&quot;https://files.catbox.moe/e1aku4.jpg&quot;}">
+         <div class="relative">
+          <div class="w-full aspect-square overflow-hidden" style="background-color: #F8F9FA;"><img src="https://files.catbox.moe/e1aku4.jpg" alt="Velg Delkevic Bintang Laut+Ban Chrome" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
+          </div>
+          <div class="absolute top-2 left-2"><span class="px-2 py-0.5 rounded text-xs font-bold" style="background-color: #FF6100; color: #FFFFFF;">PAKET</span>
+          </div>
+         </div>
+         <div class="p-2.5">
+          <h4 class="text-xs mb-1.5" style="color: #31353BAD; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; min-height: 33px;">Velg Delkevic Bintang Laut+Ban Chrome</h4>
+          <p class="text-sm font-bold mb-1" style="color: #31353BAD;">Rp1.250.000</p>
+          <div class="flex items-center gap-1 mb-2"><span class="text-xs font-bold" style="color: #31353BAD;">⭐ 4.9</span> <span class="text-xs" style="color: #6D7588;">| Terjual 420+</span>
+          </div>
+          <div class="flex items-center gap-1">
+           <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+           </svg>
+           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+          </div>
+         </div>
+        </div><!-- Product 8 -->
+        <div class="product-card rounded-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;" data-product="{&quot;name&quot;:&quot;Velg Vnd Bintang Laut+Ban Hitam&quot;,&quot;variant&quot;:&quot;Ring 17, Hitam + Ban&quot;,&quot;price&quot;:&quot;Rp1.250.000&quot;,&quot;weight&quot;:&quot;4500 g&quot;,&quot;image&quot;:&quot;https://files.catbox.moe/6ullwl.jpg&quot;}">
+         <div class="relative">
+          <div class="w-full aspect-square overflow-hidden" style="background-color: #F8F9FA;"><img src="https://files.catbox.moe/6ullwl.jpg" alt="Velg Vnd Bintang Laut+Ban Hitam" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
+          </div>
+          <div class="absolute top-2 left-2"><span class="px-2 py-0.5 rounded text-xs font-bold" style="background-color: #FF6100; color: #FFFFFF;">PAKET</span>
+          </div>
+         </div>
+         <div class="p-2.5">
+          <h4 class="text-xs mb-1.5" style="color: #31353BAD; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; min-height: 33px;">Velg Vnd Bintang Laut+Ban Hitam</h4>
+          <p class="text-sm font-bold mb-1" style="color: #31353BAD;">Rp1.250.000</p>
+          <div class="flex items-center gap-1 mb-2"><span class="text-xs font-bold" style="color: #31353BAD;">⭐ 4.8</span> <span class="text-xs" style="color: #6D7588;">| Terjual 380+</span>
+          </div>
+          <div class="flex items-center gap-1">
+           <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+           </svg>
+           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+          </div>
+         </div>
+        </div><!-- Product 9 -->
+        <div class="product-card rounded-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;" data-product="{&quot;name&quot;:&quot;Velg Vnd Bintang Merah&quot;,&quot;variant&quot;:&quot;Ring 17, Merah&quot;,&quot;price&quot;:&quot;Rp1.000.000&quot;,&quot;weight&quot;:&quot;3000 g&quot;,&quot;image&quot;:&quot;https://files.catbox.moe/20ibvl.jpg&quot;}">
+         <div class="relative">
+          <div class="w-full aspect-square overflow-hidden" style="background-color: #F8F9FA;"><img src="https://files.catbox.moe/20ibvl.jpg" alt="Velg Vnd Bintang Merah" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
+          </div>
+          <div class="absolute top-2 left-2"><span class="px-2 py-0.5 rounded text-xs font-bold" style="background-color: #FF6100; color: #FFFFFF;">PROMO</span>
+          </div>
+         </div>
+         <div class="p-2.5">
+          <h4 class="text-xs mb-1.5" style="color: #31353BAD; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; min-height: 33px;">Velg Vnd Bintang Merah</h4>
+          <p class="text-sm font-bold mb-1" style="color: #31353BAD;">Rp1.000.000</p>
+          <div class="flex items-center gap-1 mb-2"><span class="text-xs font-bold" style="color: #31353BAD;">⭐ 4.7</span> <span class="text-xs" style="color: #6D7588;">| Terjual 250+</span>
+          </div>
+          <div class="flex items-center gap-1">
+           <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+           </svg>
+           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+          </div>
+         </div>
+        </div><!-- Product 10 -->
+        <div class="product-card rounded-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;" data-product="{&quot;name&quot;:&quot;Dompet Pria Kulit Premium&quot;,&quot;variant&quot;:&quot;Material: Kulit Asli, Warna: Coklat&quot;,&quot;price&quot;:&quot;Rp179.000&quot;,&quot;weight&quot;:&quot;200 g&quot;,&quot;image&quot;:&quot;https://files.catbox.moe/e2bt1r.jpg&quot;}">
+         <div class="relative">
+          <div class="w-full aspect-square overflow-hidden" style="background-color: #F8F9FA;"><img src="https://files.catbox.moe/e2bt1r.jpg" alt="Dompet Kulit" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
+          </div>
+          <div class="absolute top-2 left-2"><span class="px-2 py-0.5 rounded text-xs font-bold" style="background-color: #FF6100; color: #FFFFFF;">35% OFF</span>
+          </div>
+         </div>
+         <div class="p-2.5">
+          <h4 class="text-xs mb-1.5" style="color: #31353BAD; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; min-height: 33px;">Dompet Pria Kulit Asli Premium Bifold Slot Banyak</h4>
+          <p class="text-sm font-bold mb-1" style="color: #31353BAD;">Rp179.000</p>
+          <div class="flex items-center gap-1 mb-2"><span class="text-xs font-bold" style="color: #31353BAD;">⭐ 4.9</span> <span class="text-xs" style="color: #6D7588;">| Terjual 1.8rb+</span>
+          </div>
+          <div class="flex items-center gap-1">
+           <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+           </svg>
+           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+          </div>
          </div>
         </div>
        </div>
       </div>
      </div>
-    </div>
-   </main>
+    </main><!-- Footer -->
+    <footer class="w-full mt-12" style="background-color: #FFFFFF; border-top: 1px solid #E5E7E9; min-width: 100%;">
+     <div class="max-w-7xl mx-auto px-6 py-12">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-10 mb-10">
+       <div>
+        <h4 class="font-bold text-sm mb-5" style="color: #31353BAD; letter-spacing: -0.2px;">Tokopedia</h4>
+        <ul class="space-y-3 text-xs" style="color: #6D7588; line-height: 1.6;">
+         <li><a href="#" class="hover:underline hover:text-green-600 transition-colors">Tentang Tokopedia</a></li>
+         <li><a href="#" class="hover:underline hover:text-green-600 transition-colors">Hak Kekayaan Intelektual</a></li>
+         <li><a href="#" class="hover:underline hover:text-green-600 transition-colors">Karir</a></li>
+         <li><a href="#" class="hover:underline hover:text-green-600 transition-colors">Blog</a></li>
+         <li><a href="#" class="hover:underline hover:text-green-600 transition-colors">Tokopedia Care</a></li>
+        </ul>
+       </div>
+       <div>
+        <h4 class="font-bold text-sm mb-5" style="color: #31353BAD; letter-spacing: -0.2px;">Beli</h4>
+        <ul class="space-y-3 text-xs" style="color: #6D7588; line-height: 1.6;">
+         <li><a href="#" class="hover:underline hover:text-green-600 transition-colors">Tagihan &amp; Top Up</a></li>
+         <li><a href="#" class="hover:underline hover:text-green-600 transition-colors">Tokopedia COD</a></li>
+         <li><a href="#" class="hover:underline hover:text-green-600 transition-colors">Bebas Ongkir</a></li>
+        </ul>
+       </div>
+       <div>
+        <h4 class="font-bold text-sm mb-5" style="color: #31353BAD; letter-spacing: -0.2px;">Jual</h4>
+        <ul class="space-y-3 text-xs" style="color: #6D7588; line-height: 1.6;">
+         <li><a href="#" class="hover:underline hover:text-green-600 transition-colors">Pusat Edukasi Seller</a></li>
+         <li><a href="#" class="hover:underline hover:text-green-600 transition-colors">Mitra Toppers</a></li>
+         <li><a href="#" class="hover:underline hover:text-green-600 transition-colors">Daftar Official Store</a></li>
+        </ul>
+       </div>
+       <div>
+        <h4 class="font-bold text-sm mb-5" style="color: #31353BAD; letter-spacing: -0.2px;">Keamanan &amp; Privasi</h4>
+        <ul class="space-y-3 text-xs" style="color: #6D7588; line-height: 1.6;">
+         <li><a href="#" class="hover:underline hover:text-green-600 transition-colors">Kebijakan Privasi</a></li>
+         <li><a href="#" class="hover:underline hover:text-green-600 transition-colors">Syarat dan Ketentuan</a></li>
+         <li><a href="#" class="hover:underline hover:text-green-600 transition-colors">Pengaduan Konsumen</a></li>
+        </ul>
+       </div>
+       <div>
+        <h4 class="font-bold text-sm mb-5" style="color: #31353BAD; letter-spacing: -0.2px;">Ikuti Kami</h4>
+        <div class="flex gap-3"><a href="#" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-green-50 transition-colors" style="background-color: #F0F3F7;">
+          <svg class="w-5 h-5" style="color: #1877F2;" fill="currentColor" viewbox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+          </svg></a> <a href="#" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-green-50 transition-colors" style="background-color: #F0F3F7;">
+          <svg class="w-5 h-5" style="color: #1DA1F2;" fill="currentColor" viewbox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+          </svg></a> <a href="#" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-green-50 transition-colors" style="background-color: #F0F3F7;">
+          <svg class="w-5 h-5" style="color: #E4405F;" fill="currentColor" viewbox="0 0 24 24"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
+          </svg></a>
+        </div>
+       </div>
+      </div>
+      <div class="border-t pt-8" style="border-color: #E5E7E9;">
+       <p class="text-xs text-center" style="color: #6D7588; letter-spacing: 0.2px;">© 2024 Tokopedia. All rights reserved.</p>
+      </div>
+     </div>
+    </footer>
+   </div><!-- Checkout Page -->
+   <div id="checkout-page" class="hidden" style="min-height: 100%; width: 100%;"><!-- Header -->
+    <header class="w-full" style="background-color: #03AC0E; box-shadow: 0 1px 3px rgba(0,0,0,0.08); min-width: 100%;">
+     <div class="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-4"><button id="back-btn" class="text-white hover:opacity-80 transition-opacity">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg></button>
+       <h1 class="text-2xl font-bold" style="color: #FFFFFF; letter-spacing: -0.5px;">Tokopedia</h1><span class="text-sm font-medium" style="color: rgba(255,255,255,0.9);">Checkout</span>
+      </div><button id="help-btn" class="flex items-center gap-2 text-sm hover:opacity-80 transition-opacity" style="color: #FFFFFF;">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+       </svg><span>Bantuan</span> </button>
+     </div>
+    </header><!-- Main Content -->
+    <main class="w-full" style="background-color: #F0F3F7; min-width: 100%;">
+     <div class="max-w-7xl mx-auto px-6 py-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4"><!-- Left Column -->
+       <div class="lg:col-span-2 space-y-3"><!-- Shipping Address -->
+        <div class="rounded-lg p-5 shadow-sm" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;">
+         <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+           <svg class="w-5 h-5" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+           </svg>
+           <h3 class="text-base font-bold" style="color: #31353BAD;">Alamat Pengiriman</h3>
+          </div><button id="change-address-btn" class="text-sm font-semibold px-3 py-1 rounded hover:bg-green-50 transition-colors" style="color: #03AC0E; border: 1px solid #03AC0E;">Pilih Alamat Lain</button>
+         </div>
+         <div class="border-t pt-4" style="border-color: #E5E7E9;">
+          <div class="flex items-start justify-between">
+           <div>
+            <div class="flex items-center gap-2 mb-1">
+             <p class="font-bold text-sm" style="color: #31353BAD;">Budi Santoso</p><span class="badge" style="background-color: #E8F6ED; color: #00AA5B;">Utama</span>
+            </div>
+            <p class="text-sm mb-2" style="color: #6D7588;">081234567890</p>
+            <p class="text-sm" style="color: #31353BAD; line-height: 1.5;">Jl. Merdeka No. 123, RT 01/RW 05, Kelurahan Menteng, Kecamatan Menteng, Jakarta Pusat, DKI Jakarta, 10310</p>
+           </div>
+          </div>
+         </div>
+        </div><!-- Products from Seller -->
+        <div class="rounded-lg shadow-sm" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;">
+         <div class="p-5 border-b" style="border-color: #E5E7E9;">
+          <div class="flex items-center gap-2 mb-3">
+           <svg class="w-5 h-5" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+           </svg>
+           <h3 class="text-base font-bold" style="color: #31353BAD;">Toko Fashion Berkah</h3><span class="badge" style="background-color: #E8F6ED; color: #00AA5B;">⭐ Power Merchant</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs" style="color: #6D7588;">
+           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+           </svg><span>Jakarta Pusat</span>
+          </div>
+         </div><!-- Selected Product -->
+         <div id="selected-product-container" class="p-5 border-b" style="border-color: #E5E7E9;"><!-- Product will be inserted here -->
+         </div><!-- Shipping Method -->
+         <div class="p-5">
+          <div class="flex items-start justify-between">
+           <div class="flex items-center gap-2">
+            <svg class="w-5 h-5" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" stroke-width="2" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1-1V9m0 0h5l3 3v4" />
+            </svg>
+            <div>
+             <p class="text-sm font-semibold" style="color: #31353BAD;">Reguler (JNE REG)</p>
+             <p class="text-xs" style="color: #6D7588;">Estimasi tiba 2-3 hari</p>
+            </div>
+           </div><button id="change-shipping-btn" class="text-sm font-semibold hover:opacity-70 transition-opacity" style="color: #00AA5B;">Ubah</button>
+          </div>
+         </div>
+        </div><!-- Payment Method -->
+        <div class="rounded-lg shadow-sm" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;">
+         <div class="p-5 border-b" style="border-color: #E5E7E9;">
+          <div class="flex items-center gap-2">
+           <svg class="w-5 h-5" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke-width="2" /> <path d="M2 10h20" stroke-width="2" />
+           </svg>
+           <h3 class="text-base font-bold" style="color: #31353BAD;">Metode Pembayaran</h3>
+          </div>
+         </div>
+         <div><!-- Instant Payment Section -->
+          <div class="border-b" style="border-color: #E5E7E9;"><button class="accordion-button w-full px-5 py-4 flex items-center justify-between text-left" onclick="toggleSection('instant')"> <span class="font-semibold text-sm" style="color: #31353BAD;">Pembayaran Instan</span>
+            <svg id="instant-arrow" class="w-4 h-4 transition-transform" style="color: #31353BAD; transform: rotate(180deg);" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg></button>
+           <div id="instant-section" class="px-5 pb-4"><!-- GoPay -->
+            <div class="payment-option border rounded-lg p-3 mb-2 cursor-pointer" style="border-color: #00AA5B; background-color: #F0FDF4;" data-payment="gopay">
+             <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+               <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #00AED6;"><span class="text-white font-bold text-xs">GO</span>
+               </div>
+               <div>
+                <p class="font-semibold text-sm" style="color: #31353BAD;">GoPay</p>
+                <p class="text-xs" style="color: #6D7588;">Cashback 10rb, Langsung Cair</p>
+               </div>
+              </div>
+              <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #00AA5B;">
+               <div class="payment-radio w-2.5 h-2.5 rounded-full" style="background-color: #00AA5B;"></div>
+              </div>
+             </div>
+            </div><!-- OVO -->
+            <div class="payment-option border rounded-lg p-3 mb-2 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="ovo">
+             <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+               <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #4C2885;"><span class="text-white font-bold text-xs">OVO</span>
+               </div>
+               <div>
+                <p class="font-semibold text-sm" style="color: #31353BAD;">OVO</p>
+                <p class="text-xs" style="color: #6D7588;">Bisa Pakai Poin OVO</p>
+               </div>
+              </div>
+              <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
+               <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
+              </div>
+             </div>
+            </div><!-- ShopeePay -->
+            <div class="payment-option border rounded-lg p-3 mb-2 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="shopeepay">
+             <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+               <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #EE4D2D;"><span class="text-white font-bold text-xs">SP</span>
+               </div>
+               <div>
+                <p class="font-semibold text-sm" style="color: #31353BAD;">ShopeePay</p>
+                <p class="text-xs" style="color: #6D7588;">Cashback hingga Rp50.000</p>
+               </div>
+              </div>
+              <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
+               <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
+              </div>
+             </div>
+            </div><!-- DANA -->
+            <div class="payment-option border rounded-lg p-3 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="dana">
+             <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+               <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #108EE9;"><span class="text-white font-bold text-xs">DANA</span>
+               </div>
+               <div>
+                <p class="font-semibold text-sm" style="color: #31353BAD;">DANA</p>
+                <p class="text-xs" style="color: #6D7588;">Promo Cashback 15%</p>
+               </div>
+              </div>
+              <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
+               <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div><!-- Transfer Bank Section -->
+          <div class="border-b" style="border-color: #E5E7E9;"><button class="accordion-button w-full px-5 py-4 flex items-center justify-between text-left" onclick="toggleSection('bank')"> <span class="font-semibold text-sm" style="color: #31353BAD;">Transfer Bank</span>
+            <svg id="bank-arrow" class="w-4 h-4 transition-transform" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg></button>
+           <div id="bank-section" class="px-5 pb-4 hidden"><!-- BCA -->
+            <div class="payment-option border rounded-lg p-3 mb-2 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="bca">
+             <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+               <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #003E7E;"><span class="text-white font-bold text-xs">BCA</span>
+               </div>
+               <div>
+                <p class="font-semibold text-sm" style="color: #31353BAD;">BCA Virtual Account</p>
+                <p class="text-xs" style="color: #6D7588;">Dicek Otomatis</p>
+               </div>
+              </div>
+              <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
+               <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
+              </div>
+             </div>
+            </div><!-- Mandiri -->
+            <div class="payment-option border rounded-lg p-3 mb-2 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="mandiri">
+             <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+               <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #003D79;"><span class="text-white font-bold text-xs">MDR</span>
+               </div>
+               <div>
+                <p class="font-semibold text-sm" style="color: #31353BAD;">Mandiri Virtual Account</p>
+                <p class="text-xs" style="color: #6D7588;">Dicek Otomatis</p>
+               </div>
+              </div>
+              <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
+               <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
+              </div>
+             </div>
+            </div><!-- BNI -->
+            <div class="payment-option border rounded-lg p-3 mb-2 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="bni">
+             <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+               <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #F37021;"><span class="text-white font-bold text-xs">BNI</span>
+               </div>
+               <div>
+                <p class="font-semibold text-sm" style="color: #31353BAD;">BNI Virtual Account</p>
+                <p class="text-xs" style="color: #6D7588;">Dicek Otomatis</p>
+               </div>
+              </div>
+              <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
+               <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
+              </div>
+             </div>
+            </div><!-- BRI -->
+            <div class="payment-option border rounded-lg p-3 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="bri">
+             <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+               <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #00529C;"><span class="text-white font-bold text-xs">BRI</span>
+               </div>
+               <div>
+                <p class="font-semibold text-sm" style="color: #31353BAD;">BRI Virtual Account</p>
+                <p class="text-xs" style="color: #6D7588;">Dicek Otomatis</p>
+               </div>
+              </div>
+              <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
+               <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div><!-- COD Section -->
+          <div><button class="accordion-button w-full px-5 py-4 flex items-center justify-between text-left" onclick="toggleSection('cod')"> <span class="font-semibold text-sm" style="color: #31353BAD;">Bayar di Tempat (COD)</span>
+            <svg id="cod-arrow" class="w-4 h-4 transition-transform" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg></button>
+           <div id="cod-section" class="px-5 pb-4 hidden">
+            <div class="payment-option border rounded-lg p-3 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="cod">
+             <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+               <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #F0F3F7; border: 1px solid #E5E7E9;">
+                <svg class="w-5 h-5" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke-width="2" stroke-linecap="round" />
+                </svg>
+               </div>
+               <div>
+                <p class="font-semibold text-sm" style="color: #31353BAD;">Bayar di Tempat</p>
+                <p class="text-xs" style="color: #6D7588;">Bayar saat barang diterima</p>
+               </div>
+              </div>
+              <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
+               <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div><!-- Right Column - Summary -->
+       <div class="lg:col-span-1">
+        <div class="rounded-lg p-5 shadow-sm sticky top-6" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;">
+         <h3 class="text-base font-bold mb-4" style="color: #31353BAD;">Ringkasan Belanja</h3>
+         <div class="space-y-2.5 mb-4 pb-4 border-b" style="border-color: #E5E7E9;">
+          <div class="flex justify-between text-sm"><span style="color: #6D7588;">Total Harga (1 Barang)</span> <span id="summary-price" style="color: #31353BAD;">-</span>
+          </div>
+          <div class="flex justify-between text-sm"><span style="color: #6D7588;">Total Ongkos Kirim</span> <span style="color: #31353BAD;">Rp15.000</span>
+          </div>
+         </div>
+         <div class="flex justify-between items-center mb-4 pb-4 border-b" style="border-color: #E5E7E9;"><span class="font-bold text-sm" style="color: #31353BAD;">Total Belanja</span> <span id="summary-total" class="text-lg font-bold" style="color: #FF6100;">-</span>
+         </div><button id="checkout-btn" class="w-full py-3.5 rounded-lg font-bold text-base transition-all hover:opacity-90" style="background-color: #03AC0E; color: #FFFFFF; box-shadow: 0 1px 2px rgba(0,0,0,0.1);"> Bayar </button>
+         <div class="mt-4 p-3 rounded-lg" style="background-color: #FFF9E6; border: 1px solid #FFC700;">
+          <div class="flex gap-2">
+           <svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color: #F5A623;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+           </svg>
+           <p class="text-xs leading-relaxed" style="color: #6D7588;">Dengan melakukan pembayaran, kamu menyetujui <span style="color: #00AA5B; font-weight: 600;">Syarat dan Ketentuan</span> yang berlaku</p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+   </div>
   </div>
   <script>
     let selectedPayment = 'gopay';
+    let selectedProduct = null;
+
+    function showToast(message, bgColor = '#00AA5B') {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.style.backgroundColor = bgColor;
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = `<div class="flex items-center gap-2"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><span>${message}</span></div>`;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+    }
 
     function toggleSection(section) {
       const sectionEl = document.getElementById(`${section}-section`);
@@ -400,7 +722,80 @@
       });
     }
 
+    function parsePrice(priceStr) {
+      return parseInt(priceStr.replace(/[^0-9]/g, ''));
+    }
+
+    function formatPrice(num) {
+      return 'Rp' + num.toLocaleString('id-ID');
+    }
+
+    function showCheckoutPage(product) {
+      selectedProduct = product;
+      
+      // Hide dashboard, show checkout
+      document.getElementById('dashboard-page').classList.add('hidden');
+      document.getElementById('checkout-page').classList.remove('hidden');
+      
+      // Update product in checkout
+      const container = document.getElementById('selected-product-container');
+      const imageHtml = product.image ? 
+        `<img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">` :
+        `<svg class="w-full h-full p-3" style="color: #BFC9D9;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/>
+          <path d="M21 15l-5-5L5 21" stroke-width="2"/>
+        </svg>`;
+      
+      container.innerHTML = `
+        <div class="flex gap-4">
+          <div class="w-16 h-16 rounded flex-shrink-0 overflow-hidden" style="background-color: #F0F3F7; border: 1px solid #E5E7E9;">
+            ${imageHtml}
+          </div>
+          <div class="flex-1">
+            <h4 class="font-medium text-sm mb-1" style="color: #31353BAD;">${product.name}</h4>
+            <p class="text-xs mb-2" style="color: #6D7588;">${product.variant}</p>
+            <div class="flex items-center justify-between mt-3">
+              <p class="font-bold text-sm" style="color: #31353BAD;">${product.price}</p>
+              <div class="flex items-center gap-3">
+                <p class="text-xs" style="color: #6D7588;">1 barang (${product.weight})</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Update summary
+      const price = parsePrice(product.price);
+      const shipping = 15000;
+      const total = price + shipping;
+      
+      document.getElementById('summary-price').textContent = formatPrice(price);
+      document.getElementById('summary-total').textContent = formatPrice(total);
+      
+      // Scroll to top
+      document.getElementById('app').scrollTop = 0;
+    }
+
+    function showDashboard() {
+      document.getElementById('checkout-page').classList.add('hidden');
+      document.getElementById('dashboard-page').classList.remove('hidden');
+      document.getElementById('app').scrollTop = 0;
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
+      // Product cards click
+      document.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const product = JSON.parse(card.dataset.product);
+          showCheckoutPage(product);
+        });
+      });
+
+      // Back button
+      document.getElementById('back-btn').addEventListener('click', showDashboard);
+
+      // Payment options
       document.querySelectorAll('.payment-option').forEach(option => {
         option.addEventListener('click', () => {
           selectedPayment = option.dataset.payment;
@@ -408,19 +803,207 @@
         });
       });
 
+      // Checkout button
       document.getElementById('checkout-btn').addEventListener('click', () => {
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.style.backgroundColor = '#00AA5B';
-        toast.style.color = '#FFFFFF';
-        toast.innerHTML = '<div class="flex items-center gap-2"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><span>Pesanan berhasil dibuat! Silakan lanjutkan pembayaran.</span></div>';
-        document.body.appendChild(toast);
+        showToast('Pesanan berhasil dibuat! Silakan lanjutkan pembayaran.');
+      });
 
-        setTimeout(() => {
-          toast.remove();
-        }, 3500);
+      // Search functionality
+      const searchInput = document.getElementById('search-input');
+      const searchBtn = document.getElementById('search-btn');
+      
+      function searchProducts() {
+        const query = searchInput.value.trim().toLowerCase();
+        const productCards = document.querySelectorAll('.product-card');
+        let foundCount = 0;
+        
+        if (query) {
+          productCards.forEach(card => {
+            const product = JSON.parse(card.dataset.product);
+            const productName = product.name.toLowerCase();
+            
+            if (productName.includes(query)) {
+              card.style.display = 'block';
+              foundCount++;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+          
+          if (foundCount > 0) {
+            showToast(`Ditemukan ${foundCount} produk untuk "${searchInput.value.trim()}"`, '#03AC0E');
+          } else {
+            showToast(`Tidak ada produk ditemukan untuk "${searchInput.value.trim()}"`, '#FF6100');
+          }
+        } else {
+          // Show all products if search is empty
+          productCards.forEach(card => {
+            card.style.display = 'block';
+          });
+          showToast('Menampilkan semua produk', '#03AC0E');
+        }
+      }
+      
+      searchBtn.addEventListener('click', searchProducts);
+      
+      searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          searchProducts();
+        }
+      });
+
+      // Sort functionality
+      document.getElementById('sort-select').addEventListener('change', (e) => {
+        const sortType = e.target.value;
+        const productsGrid = document.querySelector('.grid');
+        const productCards = Array.from(document.querySelectorAll('.product-card'));
+        
+        let sortedCards = [...productCards];
+        
+        switch(sortType) {
+          case 'Harga Terendah':
+            sortedCards.sort((a, b) => {
+              const priceA = parsePrice(JSON.parse(a.dataset.product).price);
+              const priceB = parsePrice(JSON.parse(b.dataset.product).price);
+              return priceA - priceB;
+            });
+            break;
+          case 'Harga Tertinggi':
+            sortedCards.sort((a, b) => {
+              const priceA = parsePrice(JSON.parse(a.dataset.product).price);
+              const priceB = parsePrice(JSON.parse(b.dataset.product).price);
+              return priceB - priceA;
+            });
+            break;
+          case 'Rating Tertinggi':
+            sortedCards.sort((a, b) => {
+              // Extract rating from the star rating text
+              const ratingA = parseFloat(a.querySelector('.text-xs.font-bold').textContent.replace('⭐ ', ''));
+              const ratingB = parseFloat(b.querySelector('.text-xs.font-bold').textContent.replace('⭐ ', ''));
+              return ratingB - ratingA;
+            });
+            break;
+          case 'Terbaru':
+            sortedCards.reverse();
+            break;
+          default:
+            // Paling Sesuai - keep original order
+            break;
+        }
+        
+        // Re-append cards in sorted order
+        sortedCards.forEach(card => productsGrid.appendChild(card));
+        
+        showToast(`Produk diurutkan: ${sortType}`);
+      });
+
+      // Filter buttons
+      document.getElementById('filter-btn').addEventListener('click', () => {
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => card.style.display = 'block');
+        showToast('Menampilkan semua produk');
+      });
+
+      document.getElementById('location-btn').addEventListener('click', () => {
+        const productCards = document.querySelectorAll('.product-card');
+        let count = 0;
+        productCards.forEach(card => {
+          const locationText = card.querySelector('.text-xs[style*="color: #6D7588"]').textContent;
+          if (locationText.includes('Jakarta Pusat')) {
+            card.style.display = 'block';
+            count++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        showToast(`Filter lokasi: Jakarta Pusat (${count} produk)`);
+      });
+
+      document.getElementById('price-btn').addEventListener('click', () => {
+        const productCards = document.querySelectorAll('.product-card');
+        let count = 0;
+        productCards.forEach(card => {
+          const product = JSON.parse(card.dataset.product);
+          const price = parsePrice(product.price);
+          // Filter products under 1 million
+          if (price <= 1000000) {
+            card.style.display = 'block';
+            count++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        showToast(`Filter harga: ≤ Rp1.000.000 (${count} produk)`);
+      });
+
+      document.getElementById('rating-btn').addEventListener('click', () => {
+        const productCards = document.querySelectorAll('.product-card');
+        let count = 0;
+        productCards.forEach(card => {
+          const ratingText = card.querySelector('.text-xs.font-bold').textContent;
+          const rating = parseFloat(ratingText.replace('⭐ ', ''));
+          // Filter products with rating >= 4.8
+          if (rating >= 4.8) {
+            card.style.display = 'block';
+            count++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        showToast(`Filter rating: ≥ 4.8 bintang (${count} produk)`);
+      });
+
+      document.getElementById('category-btn').addEventListener('click', () => {
+        const productCards = document.querySelectorAll('.product-card');
+        let count = 0;
+        productCards.forEach(card => {
+          const product = JSON.parse(card.dataset.product);
+          // Filter velg products
+          if (product.name.toLowerCase().includes('velg')) {
+            card.style.display = 'block';
+            count++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        showToast(`Filter kategori: Velg Motor (${count} produk)`);
+      });
+
+      // Promo button
+      document.getElementById('promo-btn').addEventListener('click', () => {
+        showToast('Menampilkan produk promo flash sale! ⚡');
+        document.getElementById('app').scrollTo({
+          top: 500,
+          behavior: 'smooth'
+        });
+      });
+
+      // Header buttons
+      document.getElementById('cart-btn').addEventListener('click', () => {
+        showToast('Membuka keranjang belanja (2 produk)');
+      });
+
+      document.getElementById('email-btn').addEventListener('click', () => {
+        showToast('Membuka kotak masuk pesan');
+      });
+
+      document.getElementById('notification-btn').addEventListener('click', () => {
+        showToast('Membuka notifikasi');
+      });
+
+      // Checkout page buttons
+      document.getElementById('help-btn').addEventListener('click', () => {
+        showToast('Membuka halaman bantuan');
+      });
+
+      document.getElementById('change-address-btn').addEventListener('click', () => {
+        showToast('Membuka daftar alamat pengiriman');
+      });
+
+      document.getElementById('change-shipping-btn').addEventListener('click', () => {
+        showToast('Membuka pilihan metode pengiriman');
       });
     });
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b720c1695a934ae',t:'MTc2NzI3MDgyOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b72c9b3358534ae',t:'MTc2NzI3ODU5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
