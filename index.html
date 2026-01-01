@@ -15,6 +15,10 @@
       padding: 0;
     }
 
+    body {
+      box-sizing: border-box;
+    }
+
     html, body {
       width: 100%;
       height: 100%;
@@ -45,7 +49,6 @@
       overscroll-behavior: contain;
     }
 
-    /* Prevent horizontal overflow */
     #dashboard-page, #checkout-page {
       max-width: 100%;
       overflow-x: hidden;
@@ -122,7 +125,7 @@
   <div id="app" class="w-full h-full overflow-y-auto overflow-x-hidden" style="background-color: #F0F3F7; position: fixed; top: 0; left: 0; right: 0; bottom: 0; -webkit-overflow-scrolling: touch;"><!-- Dashboard Page -->
    <div id="dashboard-page" style="min-height: 100%; width: 100%;"><!-- Header -->
     <header class="w-full" style="background-color: #FFFFFF; box-shadow: 0 2px 8px rgba(0,0,0,0.06); min-width: 100%;">
-     <div class="max-w-7xl mx-auto px-6"><!-- Main Header -->
+     <div class="max-w-7xl mx-auto px-6">
       <div class="flex items-center gap-4 py-3"><!-- Search Bar -->
        <div class="flex-1">
         <div class="relative"><input id="search-input" type="text" placeholder="Cari produk..." class="w-full py-2.5 pl-4 pr-12 rounded-lg text-sm outline-none transition-all focus:ring-2 focus:ring-green-500" style="background-color: #F0F3F7; border: 1px solid #E5E7E9; color: #31353BAD;"> <button id="search-btn" class="absolute right-3 top-1/2 -translate-y-1/2">
@@ -130,11 +133,11 @@
           </svg></button>
         </div>
        </div><!-- Right Icons -->
-       <div class="flex items-center gap-5 flex-shrink-0"><!-- Cart with Badge --> <button id="cart-btn" class="relative hover:opacity-70 transition-opacity">
+       <div class="flex items-center gap-5 flex-shrink-0"><button id="cart-btn" class="relative hover:opacity-70 transition-opacity">
          <svg class="w-6 h-6" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-         </svg><span class="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center font-bold" style="background-color: #FF6100; color: #FFFFFF; font-size: 9px;">2</span> </button> <!-- Email Icon --> <button id="email-btn" class="hover:opacity-70 transition-opacity">
+         </svg><span class="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center font-bold" style="background-color: #FF6100; color: #FFFFFF; font-size: 9px;">2</span> </button> <button id="email-btn" class="hover:opacity-70 transition-opacity">
          <svg class="w-6 h-6" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-         </svg></button> <!-- Notification Bell --> <button id="notification-btn" class="hover:opacity-70 transition-opacity">
+         </svg></button> <button id="notification-btn" class="hover:opacity-70 transition-opacity">
          <svg class="w-6 h-6" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
          </svg></button>
        </div>
@@ -154,11 +157,11 @@
        </div>
       </div><!-- Filter & Sort Bar -->
       <div class="rounded-lg p-4 mb-5 shadow-sm" style="background-color: #FFFFFF;">
-       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"><!-- Filter Buttons -->
+       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div class="flex items-center gap-2 flex-wrap"><button id="filter-btn" class="px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
           </svg> Filter </button> <button id="location-btn" class="px-4 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;"> Lokasi </button> <button id="price-btn" class="px-4 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;"> Harga </button> <button id="rating-btn" class="px-4 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;"> Rating </button> <button id="category-btn" class="px-4 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;"> Kategori </button>
-        </div><!-- Sort Dropdown -->
+        </div>
         <div class="flex items-center gap-2"><span class="text-sm font-medium whitespace-nowrap" style="color: #6D7588;">Urutkan:</span> <select id="sort-select" class="px-4 py-2.5 rounded-lg text-sm font-medium outline-none cursor-pointer transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;"> <option>Paling Sesuai</option> <option>Harga Terendah</option> <option>Harga Tertinggi</option> <option>Terbaru</option> <option>Rating Tertinggi</option> </select>
         </div>
        </div>
@@ -180,7 +183,7 @@
           <div class="flex items-center gap-1">
            <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
            </svg>
-           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+           <p class="text-xs" style="color: #6D7588;">Medan Pusat</p>
           </div>
          </div>
         </div><!-- Product 2 -->
@@ -199,7 +202,7 @@
           <div class="flex items-center gap-1">
            <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
            </svg>
-           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+           <p class="text-xs" style="color: #6D7588;">Medan Pusat</p>
           </div>
          </div>
         </div><!-- Product 3 -->
@@ -218,7 +221,7 @@
           <div class="flex items-center gap-1">
            <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
            </svg>
-           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+           <p class="text-xs" style="color: #6D7588;">Medan Pusat</p>
           </div>
          </div>
         </div><!-- Product 4 -->
@@ -237,7 +240,7 @@
           <div class="flex items-center gap-1">
            <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
            </svg>
-           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+           <p class="text-xs" style="color: #6D7588;">Medan Pusat</p>
           </div>
          </div>
         </div><!-- Product 5 -->
@@ -256,7 +259,7 @@
           <div class="flex items-center gap-1">
            <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
            </svg>
-           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+           <p class="text-xs" style="color: #6D7588;">Medan Pusat</p>
           </div>
          </div>
         </div><!-- Product 6 -->
@@ -275,7 +278,7 @@
           <div class="flex items-center gap-1">
            <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
            </svg>
-           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+           <p class="text-xs" style="color: #6D7588;">Medan Pusat</p>
           </div>
          </div>
         </div><!-- Product 7 -->
@@ -294,7 +297,7 @@
           <div class="flex items-center gap-1">
            <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
            </svg>
-           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+           <p class="text-xs" style="color: #6D7588;">Medan Pusat</p>
           </div>
          </div>
         </div><!-- Product 8 -->
@@ -313,13 +316,32 @@
           <div class="flex items-center gap-1">
            <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
            </svg>
-           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+           <p class="text-xs" style="color: #6D7588;">Medan Pusat</p>
           </div>
          </div>
         </div><!-- Product 9 -->
-        <div class="product-card rounded-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;" data-product="{&quot;name&quot;:&quot;Velg Vnd Bintang Merah&quot;,&quot;variant&quot;:&quot;Ring 17, Merah&quot;,&quot;price&quot;:&quot;Rp1.000.000&quot;,&quot;weight&quot;:&quot;3000 g&quot;,&quot;image&quot;:&quot;https://files.catbox.moe/20ibvl.jpg&quot;}">
+        <div class="product-card rounded-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;" data-product="{&quot;name&quot;:&quot;Velg Premium P10+Ban Hitam&quot;,&quot;variant&quot;:&quot;Ring 17, Hitam + Ban&quot;,&quot;price&quot;:&quot;Rp1.250.000&quot;,&quot;weight&quot;:&quot;4500 g&quot;,&quot;image&quot;:&quot;https://files.catbox.moe/20ibvl.jpg&quot;}">
          <div class="relative">
-          <div class="w-full aspect-square overflow-hidden" style="background-color: #F8F9FA;"><img src="https://files.catbox.moe/20ibvl.jpg" alt="Velg Vnd Bintang Merah" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
+          <div class="w-full aspect-square overflow-hidden" style="background-color: #F8F9FA;"><img src="https://files.catbox.moe/20ibvl.jpg" alt="Velg Premium P10+Ban Hitam" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
+          </div>
+          <div class="absolute top-2 left-2"><span class="px-2 py-0.5 rounded text-xs font-bold" style="background-color: #FF6100; color: #FFFFFF;">PAKET</span>
+          </div>
+         </div>
+         <div class="p-2.5">
+          <h4 class="text-xs mb-1.5" style="color: #31353BAD; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; min-height: 33px;">Velg Premium P10+Ban Hitam</h4>
+          <p class="text-sm font-bold mb-1" style="color: #31353BAD;">Rp1.250.000</p>
+          <div class="flex items-center gap-1 mb-2"><span class="text-xs font-bold" style="color: #31353BAD;">⭐ 4.7</span> <span class="text-xs" style="color: #6D7588;">| Terjual 250+</span>
+          </div>
+          <div class="flex items-center gap-1">
+           <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+           </svg>
+           <p class="text-xs" style="color: #6D7588;">Medan Pusat</p>
+          </div>
+         </div>
+        </div><!-- Product 10 -->
+        <div class="product-card rounded-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;" data-product="{&quot;name&quot;:&quot;Velg Vnd Bintang Merah&quot;,&quot;variant&quot;:&quot;Ring 17, Merah&quot;,&quot;price&quot;:&quot;Rp1.000.000&quot;,&quot;weight&quot;:&quot;3000 g&quot;,&quot;image&quot;:&quot;https://files.catbox.moe/e2bt1r.jpg&quot;}">
+         <div class="relative">
+          <div class="w-full aspect-square overflow-hidden" style="background-color: #F8F9FA;"><img src="https://files.catbox.moe/e2bt1r.jpg" alt="Velg Vnd Bintang Merah" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
           </div>
           <div class="absolute top-2 left-2"><span class="px-2 py-0.5 rounded text-xs font-bold" style="background-color: #FF6100; color: #FFFFFF;">PROMO</span>
           </div>
@@ -332,26 +354,7 @@
           <div class="flex items-center gap-1">
            <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
            </svg>
-           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
-          </div>
-         </div>
-        </div><!-- Product 10 -->
-        <div class="product-card rounded-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;" data-product="{&quot;name&quot;:&quot;Dompet Pria Kulit Premium&quot;,&quot;variant&quot;:&quot;Material: Kulit Asli, Warna: Coklat&quot;,&quot;price&quot;:&quot;Rp179.000&quot;,&quot;weight&quot;:&quot;200 g&quot;,&quot;image&quot;:&quot;https://files.catbox.moe/e2bt1r.jpg&quot;}">
-         <div class="relative">
-          <div class="w-full aspect-square overflow-hidden" style="background-color: #F8F9FA;"><img src="https://files.catbox.moe/e2bt1r.jpg" alt="Dompet Kulit" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
-          </div>
-          <div class="absolute top-2 left-2"><span class="px-2 py-0.5 rounded text-xs font-bold" style="background-color: #FF6100; color: #FFFFFF;">35% OFF</span>
-          </div>
-         </div>
-         <div class="p-2.5">
-          <h4 class="text-xs mb-1.5" style="color: #31353BAD; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; min-height: 33px;">Dompet Pria Kulit Asli Premium Bifold Slot Banyak</h4>
-          <p class="text-sm font-bold mb-1" style="color: #31353BAD;">Rp179.000</p>
-          <div class="flex items-center gap-1 mb-2"><span class="text-xs font-bold" style="color: #31353BAD;">⭐ 4.9</span> <span class="text-xs" style="color: #6D7588;">| Terjual 1.8rb+</span>
-          </div>
-          <div class="flex items-center gap-1">
-           <svg class="w-3 h-3" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-           </svg>
-           <p class="text-xs" style="color: #6D7588;">Jakarta Pusat</p>
+           <p class="text-xs" style="color: #6D7588;">Medan Pusat</p>
           </div>
          </div>
         </div>
@@ -430,24 +433,51 @@
      <div class="max-w-7xl mx-auto px-6 py-6">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4"><!-- Left Column -->
        <div class="lg:col-span-2 space-y-3"><!-- Shipping Address -->
-        <div class="rounded-lg p-5 shadow-sm" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;">
-         <div class="flex items-center justify-between mb-4">
+        <div class="rounded-lg shadow-sm" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;">
+         <div class="p-4 border-b flex items-center justify-between" style="border-color: #E5E7E9;">
           <div class="flex items-center gap-2">
            <svg class="w-5 h-5" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
            </svg>
-           <h3 class="text-base font-bold" style="color: #31353BAD;">Alamat Pengiriman</h3>
-          </div><button id="change-address-btn" class="text-sm font-semibold px-3 py-1 rounded hover:bg-green-50 transition-colors" style="color: #03AC0E; border: 1px solid #03AC0E;">Pilih Alamat Lain</button>
-         </div>
-         <div class="border-t pt-4" style="border-color: #E5E7E9;">
+           <h3 class="text-sm font-bold" style="color: #31353BAD;">Alamat Pengiriman</h3>
+          </div><button id="edit-address-btn" class="text-xs font-semibold hover:opacity-70 transition-opacity" style="color: #00AA5B;"> <span id="edit-address-text">+ Tambah Alamat Baru</span> </button>
+         </div><!-- Address Display -->
+         <div id="address-display" class="hidden p-4">
           <div class="flex items-start justify-between">
-           <div>
+           <div class="flex-1">
             <div class="flex items-center gap-2 mb-1">
-             <p class="font-bold text-sm" style="color: #31353BAD;">Budi Santoso</p><span class="badge" style="background-color: #E8F6ED; color: #00AA5B;">Utama</span>
+             <p id="display-name" class="font-bold text-sm" style="color: #31353BAD;"></p><span class="text-xs px-2 py-0.5 rounded" style="background-color: #F0F3F7; color: #6D7588; border: 1px solid #E5E7E9;">Utama</span>
             </div>
-            <p class="text-sm mb-2" style="color: #6D7588;">081234567890</p>
-            <p class="text-sm" style="color: #31353BAD; line-height: 1.5;">Jl. Merdeka No. 123, RT 01/RW 05, Kelurahan Menteng, Kecamatan Menteng, Jakarta Pusat, DKI Jakarta, 10310</p>
-           </div>
+            <p id="display-phone" class="text-xs mb-2" style="color: #6D7588;"></p>
+            <p id="display-address" class="text-xs" style="color: #6D7588; line-height: 1.5;"></p>
+           </div><button id="change-address-btn" class="text-xs font-semibold hover:opacity-70 transition-opacity ml-4" style="color: #00AA5B;"> Ubah </button>
           </div>
+         </div><!-- Empty State -->
+         <div id="address-empty" class="p-4">
+          <p class="text-xs text-center" style="color: #6D7588;">Belum ada alamat pengiriman</p>
+         </div><!-- Address Form -->
+         <div id="address-form" class="hidden p-4" style="border-top: 1px solid #E5E7E9;">
+          <form id="shipping-address-form" class="space-y-3">
+           <div><label for="recipient-name" class="block text-xs font-semibold mb-1.5" style="color: #31353BAD;">Nama Penerima</label> <input type="text" id="recipient-name" required class="w-full px-3 py-2 rounded text-sm outline-none transition-all focus:ring-1 focus:ring-green-500" style="background-color: #F0F3F7; border: 1px solid #E5E7E9; color: #31353BAD;">
+           </div>
+           <div><label for="recipient-phone" class="block text-xs font-semibold mb-1.5" style="color: #31353BAD;">Nomor Telepon</label> <input type="tel" id="recipient-phone" required pattern="[0-9]{10,13}" title="Masukkan nomor telepon yang valid (10-13 digit angka)" placeholder="08123456789" class="w-full px-3 py-2 rounded text-sm outline-none transition-all focus:ring-1 focus:ring-green-500" style="background-color: #F0F3F7; border: 1px solid #E5E7E9; color: #31353BAD;">
+           </div>
+           <div><label for="address-detail" class="block text-xs font-semibold mb-1.5" style="color: #31353BAD;">Alamat Lengkap</label> <textarea id="address-detail" required rows="2" class="w-full px-3 py-2 rounded text-sm outline-none transition-all focus:ring-1 focus:ring-green-500 resize-none" style="background-color: #F0F3F7; border: 1px solid #E5E7E9; color: #31353BAD;"></textarea>
+           </div>
+           <div class="grid grid-cols-2 gap-2">
+            <div><label for="province" class="block text-xs font-semibold mb-1.5" style="color: #31353BAD;">Provinsi</label> <input type="text" id="province" required class="w-full px-3 py-2 rounded text-sm outline-none transition-all focus:ring-1 focus:ring-green-500" style="background-color: #F0F3F7; border: 1px solid #E5E7E9; color: #31353BAD;">
+            </div>
+            <div><label for="city" class="block text-xs font-semibold mb-1.5" style="color: #31353BAD;">Kota</label> <input type="text" id="city" required class="w-full px-3 py-2 rounded text-sm outline-none transition-all focus:ring-1 focus:ring-green-500" style="background-color: #F0F3F7; border: 1px solid #E5E7E9; color: #31353BAD;">
+            </div>
+           </div>
+           <div class="grid grid-cols-2 gap-2">
+            <div><label for="district" class="block text-xs font-semibold mb-1.5" style="color: #31353BAD;">Kecamatan</label> <input type="text" id="district" required class="w-full px-3 py-2 rounded text-sm outline-none transition-all focus:ring-1 focus:ring-green-500" style="background-color: #F0F3F7; border: 1px solid #E5E7E9; color: #31353BAD;">
+            </div>
+            <div><label for="postal-code" class="block text-xs font-semibold mb-1.5" style="color: #31353BAD;">Kode Pos</label> <input type="text" id="postal-code" required pattern="[0-9]{5}" maxlength="5" title="Masukkan 5 digit kode pos" placeholder="12345" class="w-full px-3 py-2 rounded text-sm outline-none transition-all focus:ring-1 focus:ring-green-500" style="background-color: #F0F3F7; border: 1px solid #E5E7E9; color: #31353BAD;">
+            </div>
+           </div>
+           <div class="flex gap-2 pt-2"><button type="button" id="cancel-address-btn" class="flex-1 py-2 rounded text-sm font-semibold transition-all hover:opacity-80" style="background-color: #F0F3F7; color: #6D7588; border: 1px solid #E5E7E9;"> Batal </button> <button type="submit" class="flex-1 py-2 rounded text-sm font-semibold transition-all hover:opacity-90" style="background-color: #03AC0E; color: #FFFFFF;"> Simpan </button>
+           </div>
+          </form>
          </div>
         </div><!-- Products from Seller -->
         <div class="rounded-lg shadow-sm" style="background-color: #FFFFFF; border: 1px solid #E5E7E9;">
@@ -459,7 +489,7 @@
           </div>
           <div class="flex items-center gap-2 text-xs" style="color: #6D7588;">
            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-           </svg><span>Jakarta Pusat</span>
+           </svg><span>Medan Pusat</span>
           </div>
          </div><!-- Selected Product -->
          <div id="selected-product-container" class="p-5 border-b" style="border-color: #E5E7E9;"><!-- Product will be inserted here -->
@@ -469,9 +499,7 @@
            <div class="flex items-center gap-2">
             <svg class="w-5 h-5" style="color: #31353BAD;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" stroke-width="2" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1-1V9m0 0h5l3 3v4" />
             </svg>
-            <div>
-             <p class="text-sm font-semibold" style="color: #31353BAD;">Reguler (JNE REG)</p>
-             <p class="text-xs" style="color: #6D7588;">Estimasi tiba 2-3 hari</p>
+            <div><button id="shipping-method-btn" class="text-left"> <p class="text-sm font-semibold hover:opacity-70 transition-opacity" style="color: #31353BAD;">Reguler (JNE REG)</p><p class="text-xs" style="color: #6D7588;">Estimasi tiba 2-3 hari</p></button>
             </div>
            </div><button id="change-shipping-btn" class="text-sm font-semibold hover:opacity-70 transition-opacity" style="color: #00AA5B;">Ubah</button>
           </div>
@@ -535,7 +563,7 @@
               </div>
              </div>
             </div><!-- DANA -->
-            <div class="payment-option border rounded-lg p-3 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="dana">
+            <div class="payment-option border rounded-lg p-3 mb-2 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="dana">
              <div class="flex items-center justify-between">
               <div class="flex items-center gap-3">
                <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #108EE9;"><span class="text-white font-bold text-xs">DANA</span>
@@ -543,6 +571,21 @@
                <div>
                 <p class="font-semibold text-sm" style="color: #31353BAD;">DANA</p>
                 <p class="text-xs" style="color: #6D7588;">Promo Cashback 15%</p>
+               </div>
+              </div>
+              <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
+               <div class="payment-radio w-2.5 h-2.5 rounded-full"></div>
+              </div>
+             </div>
+            </div><!-- QRIS -->
+            <div class="payment-option border rounded-lg p-3 cursor-pointer" style="border-color: #E5E7E9; background-color: #FFFFFF;" data-payment="qris">
+             <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+               <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #FF3E3E;"><span class="text-white font-bold text-xs">QR</span>
+               </div>
+               <div>
+                <p class="font-semibold text-sm" style="color: #31353BAD;">QRIS</p>
+                <p class="text-xs" style="color: #6D7588;">Scan &amp; Bayar Instan</p>
                </div>
               </div>
               <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color: #BFC9D9;">
@@ -667,11 +710,122 @@
       </div>
      </div>
     </main>
+   </div><!-- QRIS Payment Modal -->
+   <div id="qris-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background-color: rgba(0, 0, 0, 0.6); overflow-y: auto;">
+    <div class="rounded-xl shadow-2xl max-w-md w-full my-8" style="background-color: #FFFFFF;">
+     <div class="p-4 border-b" style="border-color: #E5E7E9;">
+      <div class="flex items-center justify-between">
+       <h3 class="text-base font-bold" style="color: #31353BAD;">Pembayaran QRIS</h3><button id="close-qris-modal" class="hover:opacity-70 transition-opacity">
+        <svg class="w-5 h-5" style="color: #6D7588;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg></button>
+      </div>
+     </div>
+     <div class="p-4 text-center max-h-[70vh] overflow-y-auto">
+      <p class="text-xs mb-3" style="color: #6D7588;">Scan kode QR di bawah ini menggunakan aplikasi pembayaran Anda</p><!-- QRIS Code Image -->
+      <div class="mb-3 flex justify-center">
+       <div class="rounded-lg overflow-hidden shadow-lg" style="border: 2px solid #E5E7E9;"><img src="https://files.catbox.moe/8kvtul.jpg" alt="QRIS Code" style="width: 200px; height: 200px; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load';">
+       </div>
+      </div>
+      <div class="rounded-lg p-3 mb-3" style="background-color: #FFF9E6; border: 1px solid #FFC700;">
+       <div class="flex items-center justify-center gap-2">
+        <svg class="w-4 h-4 flex-shrink-0" style="color: #F5A623;" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+        </svg>
+        <div class="text-center">
+         <p class="text-xs font-semibold" style="color: #31353BAD;">Total Pembayaran</p>
+         <p id="qris-total-amount" class="text-lg font-bold" style="color: #FF6100;">Rp0</p>
+        </div>
+       </div>
+      </div>
+      <div class="space-y-1.5 text-left mb-3">
+       <p class="text-xs font-semibold" style="color: #31353BAD;">Cara Pembayaran:</p>
+       <ol class="text-xs space-y-1" style="color: #6D7588; line-height: 1.4;">
+        <li>1. Buka aplikasi pembayaran (GoPay, OVO, DANA, dll)</li>
+        <li>2. Pilih menu Scan QR atau QRIS</li>
+        <li>3. Arahkan kamera ke kode QR di atas</li>
+        <li>4. Konfirmasi pembayaran di aplikasi Anda</li>
+        <li>5. Pembayaran akan otomatis terverifikasi</li>
+       </ol>
+      </div><button id="confirm-qris-payment" class="w-full py-2.5 rounded-lg font-bold text-sm transition-all hover:opacity-90" style="background-color: #03AC0E; color: #FFFFFF;"> Saya Sudah Bayar </button>
+     </div>
+    </div>
+   </div><!-- Pending Payment Modal -->
+   <div id="pending-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background-color: rgba(0, 0, 0, 0.6); overflow-y: auto;">
+    <div class="rounded-xl shadow-2xl max-w-md w-full my-8" style="background-color: #FFFFFF;">
+     <div class="p-6 text-center"><!-- Animated Pending Icon -->
+      <div class="mb-4 flex justify-center">
+       <div class="w-20 h-20 rounded-full flex items-center justify-center" style="background-color: #FFF9E6;">
+        <svg class="w-12 h-12 animate-spin" style="color: #F5A623;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="3" stroke-dasharray="31.415, 31.415" stroke-linecap="round" />
+        </svg>
+       </div>
+      </div>
+      <h3 class="text-xl font-bold mb-2" style="color: #31353BAD;">Pembayaran Sedang Diproses</h3>
+      <p class="text-sm mb-4" style="color: #6D7588; line-height: 1.6;">Mohon tunggu sebentar, kami sedang memverifikasi pembayaran Anda</p>
+      <div class="rounded-lg p-4 mb-4" style="background-color: #F0F3F7;">
+       <div class="flex items-center justify-between mb-2"><span class="text-xs font-medium" style="color: #6D7588;">Status</span> <span class="text-xs font-bold px-2 py-1 rounded" style="background-color: #FFF9E6; color: #F5A623;">⏳ PENDING</span>
+       </div>
+       <div class="flex items-center justify-between"><span class="text-xs font-medium" style="color: #6D7588;">Total Pembayaran</span> <span id="pending-total-amount" class="text-sm font-bold" style="color: #31353BAD;">Rp0</span>
+       </div>
+      </div>
+      <div class="text-xs text-left p-3 rounded-lg mb-4" style="background-color: #E8F6ED; border: 1px solid #00AA5B;">
+       <p style="color: #31353BAD; line-height: 1.5;"><strong>💡 Catatan:</strong> Proses verifikasi pembayaran biasanya memakan waktu 1-5 menit. Setelah pembayaran berhasil diverifikasi, kami akan mengirimkan <strong>konfirmasi &amp; rincian pesanan</strong> ke WhatsApp Anda.</p>
+      </div><button id="close-pending-modal" class="w-full py-3 rounded-lg font-bold text-sm transition-all hover:opacity-90" style="background-color: #03AC0E; color: #FFFFFF;"> Mengerti </button>
+     </div>
+    </div>
+   </div><!-- Customer Service Bubble (Only on Checkout Page) -->
+   <div id="cs-bubble" class="hidden fixed z-40" style="bottom: 20px; right: 20px;"><button id="cs-btn" class="w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 relative" style="background-color: #03AC0E;">
+     <svg class="w-7 h-7" style="color: #FFFFFF;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+     </svg><!-- Notification dot --> <span class="absolute -top-1 -right-1 w-3 h-3 rounded-full animate-pulse" style="background-color: #FF6100;"></span> </button>
+   </div><!-- Customer Service Chat Modal -->
+   <div id="cs-modal" class="hidden fixed inset-0 z-50 flex items-end justify-end p-4" style="pointer-events: none;">
+    <div class="rounded-xl shadow-2xl w-80 mb-20 mr-0" style="background-color: #FFFFFF; pointer-events: auto;"><!-- Header -->
+     <div class="p-4 border-b flex items-center justify-between" style="background: linear-gradient(135deg, #03AC0E 0%, #00D68F 100%); border-radius: 12px 12px 0 0;">
+      <div class="flex items-center gap-3">
+       <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: rgba(255,255,255,0.3);">
+        <svg class="w-6 h-6" style="color: #FFFFFF;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+       </div>
+       <div>
+        <h3 class="font-bold text-sm" style="color: #FFFFFF;">Customer Service</h3>
+        <p class="text-xs" style="color: rgba(255,255,255,0.9);">● Online</p>
+       </div>
+      </div><button id="close-cs-modal" class="hover:opacity-80 transition-opacity">
+       <svg class="w-5 h-5" style="color: #FFFFFF;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+       </svg></button>
+     </div><!-- Chat Messages -->
+     <div class="p-4 space-y-3" style="background-color: #F0F3F7; max-height: 300px; overflow-y: auto;"><!-- CS Message -->
+      <div class="flex gap-2">
+       <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #03AC0E;">
+        <svg class="w-4 h-4" style="color: #FFFFFF;" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+       </div>
+       <div>
+        <div class="rounded-lg rounded-tl-none p-3 text-xs" style="background-color: #FFFFFF; color: #31353BAD; line-height: 1.5;">
+         Halo! 👋 Ada yang bisa kami bantu?
+        </div>
+        <p class="text-xs mt-1" style="color: #6D7588;">Barusan</p>
+       </div>
+      </div>
+     </div><!-- Quick Replies -->
+     <div class="p-4 border-t space-y-2" style="border-color: #E5E7E9;">
+      <p class="text-xs font-semibold mb-2" style="color: #6D7588;">Pertanyaan Cepat:</p><button class="quick-reply w-full text-left px-3 py-2 rounded-lg text-xs transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;"> 📦 Cek status pesanan </button> <button class="quick-reply w-full text-left px-3 py-2 rounded-lg text-xs transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;"> ��� Cara pembayaran </button> <button class="quick-reply w-full text-left px-3 py-2 rounded-lg text-xs transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;"> 🚚 Info pengiriman </button> <button class="quick-reply w-full text-left px-3 py-2 rounded-lg text-xs transition-all hover:bg-green-50" style="background-color: #F0F3F7; color: #31353BAD; border: 1px solid #E5E7E9;"> 📞 Hubungi via WhatsApp </button>
+     </div>
+    </div>
    </div>
   </div>
   <script>
     let selectedPayment = 'gopay';
     let selectedProduct = null;
+    let shippingAddress = null;
+
+    function showPendingModal() {
+      const pendingModal = document.getElementById('pending-modal');
+      const pendingTotalAmount = document.getElementById('pending-total-amount');
+      
+      const totalText = document.getElementById('summary-total').textContent;
+      pendingTotalAmount.textContent = totalText;
+      
+      pendingModal.classList.remove('hidden');
+    }
 
     function showToast(message, bgColor = '#00AA5B') {
       const toast = document.createElement('div');
@@ -733,11 +887,9 @@
     function showCheckoutPage(product) {
       selectedProduct = product;
       
-      // Hide dashboard, show checkout
       document.getElementById('dashboard-page').classList.add('hidden');
       document.getElementById('checkout-page').classList.remove('hidden');
       
-      // Update product in checkout
       const container = document.getElementById('selected-product-container');
       const imageHtml = product.image ? 
         `<img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">` :
@@ -765,7 +917,6 @@
         </div>
       `;
       
-      // Update summary
       const price = parsePrice(product.price);
       const shipping = 15000;
       const total = price + shipping;
@@ -773,18 +924,17 @@
       document.getElementById('summary-price').textContent = formatPrice(price);
       document.getElementById('summary-total').textContent = formatPrice(total);
       
-      // Scroll to top
       document.getElementById('app').scrollTop = 0;
     }
 
     function showDashboard() {
       document.getElementById('checkout-page').classList.add('hidden');
       document.getElementById('dashboard-page').classList.remove('hidden');
+      
       document.getElementById('app').scrollTop = 0;
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Product cards click
       document.querySelectorAll('.product-card').forEach(card => {
         card.addEventListener('click', () => {
           const product = JSON.parse(card.dataset.product);
@@ -792,10 +942,8 @@
         });
       });
 
-      // Back button
       document.getElementById('back-btn').addEventListener('click', showDashboard);
 
-      // Payment options
       document.querySelectorAll('.payment-option').forEach(option => {
         option.addEventListener('click', () => {
           selectedPayment = option.dataset.payment;
@@ -803,12 +951,57 @@
         });
       });
 
-      // Checkout button
       document.getElementById('checkout-btn').addEventListener('click', () => {
-        showToast('Pesanan berhasil dibuat! Silakan lanjutkan pembayaran.');
+        if (!shippingAddress) {
+          showToast('❌ Harap isi alamat pengiriman terlebih dahulu', '#FF6100');
+          document.getElementById('app').scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+          return;
+        }
+        
+        if (selectedPayment === 'qris') {
+          const modal = document.getElementById('qris-modal');
+          const qrisTotalAmount = document.getElementById('qris-total-amount');
+          
+          const totalText = document.getElementById('summary-total').textContent;
+          qrisTotalAmount.textContent = totalText;
+          
+          modal.classList.remove('hidden');
+        } else {
+          showToast('❌ Metode pembayaran ini tidak tersedia. Silakan pilih QRIS.', '#FF6100');
+        }
       });
 
-      // Search functionality
+      document.getElementById('close-qris-modal').addEventListener('click', () => {
+        document.getElementById('qris-modal').classList.add('hidden');
+      });
+
+      document.getElementById('confirm-qris-payment').addEventListener('click', () => {
+        document.getElementById('qris-modal').classList.add('hidden');
+        showPendingModal();
+      });
+
+      document.getElementById('qris-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'qris-modal') {
+          document.getElementById('qris-modal').classList.add('hidden');
+        }
+      });
+
+      document.getElementById('close-pending-modal').addEventListener('click', () => {
+        document.getElementById('pending-modal').classList.add('hidden');
+        showDashboard();
+        showToast('✅ Pembayaran sedang diverifikasi. Anda akan menerima notifikasi.');
+      });
+
+      document.getElementById('pending-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'pending-modal') {
+          document.getElementById('pending-modal').classList.add('hidden');
+          showDashboard();
+        }
+      });
+
       const searchInput = document.getElementById('search-input');
       const searchBtn = document.getElementById('search-btn');
       
@@ -836,7 +1029,6 @@
             showToast(`Tidak ada produk ditemukan untuk "${searchInput.value.trim()}"`, '#FF6100');
           }
         } else {
-          // Show all products if search is empty
           productCards.forEach(card => {
             card.style.display = 'block';
           });
@@ -852,7 +1044,6 @@
         }
       });
 
-      // Sort functionality
       document.getElementById('sort-select').addEventListener('change', (e) => {
         const sortType = e.target.value;
         const productsGrid = document.querySelector('.grid');
@@ -877,7 +1068,6 @@
             break;
           case 'Rating Tertinggi':
             sortedCards.sort((a, b) => {
-              // Extract rating from the star rating text
               const ratingA = parseFloat(a.querySelector('.text-xs.font-bold').textContent.replace('⭐ ', ''));
               const ratingB = parseFloat(b.querySelector('.text-xs.font-bold').textContent.replace('⭐ ', ''));
               return ratingB - ratingA;
@@ -887,17 +1077,14 @@
             sortedCards.reverse();
             break;
           default:
-            // Paling Sesuai - keep original order
             break;
         }
         
-        // Re-append cards in sorted order
         sortedCards.forEach(card => productsGrid.appendChild(card));
         
         showToast(`Produk diurutkan: ${sortType}`);
       });
 
-      // Filter buttons
       document.getElementById('filter-btn').addEventListener('click', () => {
         const productCards = document.querySelectorAll('.product-card');
         productCards.forEach(card => card.style.display = 'block');
@@ -909,14 +1096,14 @@
         let count = 0;
         productCards.forEach(card => {
           const locationText = card.querySelector('.text-xs[style*="color: #6D7588"]').textContent;
-          if (locationText.includes('Jakarta Pusat')) {
+          if (locationText.includes('Medan Pusat')) {
             card.style.display = 'block';
             count++;
           } else {
             card.style.display = 'none';
           }
         });
-        showToast(`Filter lokasi: Jakarta Pusat (${count} produk)`);
+        showToast(`Filter lokasi: Medan Pusat (${count} produk)`);
       });
 
       document.getElementById('price-btn').addEventListener('click', () => {
@@ -925,7 +1112,6 @@
         productCards.forEach(card => {
           const product = JSON.parse(card.dataset.product);
           const price = parsePrice(product.price);
-          // Filter products under 1 million
           if (price <= 1000000) {
             card.style.display = 'block';
             count++;
@@ -933,7 +1119,7 @@
             card.style.display = 'none';
           }
         });
-        showToast(`Filter harga: ≤ Rp1.000.000 (${count} produk)`);
+        showToast(`Filter harga: ��� Rp1.000.000 (${count} produk)`);
       });
 
       document.getElementById('rating-btn').addEventListener('click', () => {
@@ -942,7 +1128,6 @@
         productCards.forEach(card => {
           const ratingText = card.querySelector('.text-xs.font-bold').textContent;
           const rating = parseFloat(ratingText.replace('⭐ ', ''));
-          // Filter products with rating >= 4.8
           if (rating >= 4.8) {
             card.style.display = 'block';
             count++;
@@ -958,7 +1143,6 @@
         let count = 0;
         productCards.forEach(card => {
           const product = JSON.parse(card.dataset.product);
-          // Filter velg products
           if (product.name.toLowerCase().includes('velg')) {
             card.style.display = 'block';
             count++;
@@ -969,7 +1153,6 @@
         showToast(`Filter kategori: Velg Motor (${count} produk)`);
       });
 
-      // Promo button
       document.getElementById('promo-btn').addEventListener('click', () => {
         showToast('Menampilkan produk promo flash sale! ⚡');
         document.getElementById('app').scrollTo({
@@ -978,7 +1161,6 @@
         });
       });
 
-      // Header buttons
       document.getElementById('cart-btn').addEventListener('click', () => {
         showToast('Membuka keranjang belanja (2 produk)');
       });
@@ -991,19 +1173,110 @@
         showToast('Membuka notifikasi');
       });
 
-      // Checkout page buttons
       document.getElementById('help-btn').addEventListener('click', () => {
         showToast('Membuka halaman bantuan');
       });
 
+      document.getElementById('edit-address-btn').addEventListener('click', () => {
+        const form = document.getElementById('address-form');
+        const display = document.getElementById('address-display');
+        const empty = document.getElementById('address-empty');
+        
+        if (form.classList.contains('hidden')) {
+          form.classList.remove('hidden');
+          display.classList.add('hidden');
+          empty.classList.add('hidden');
+        } else {
+          form.classList.add('hidden');
+          if (shippingAddress) {
+            display.classList.remove('hidden');
+          } else {
+            empty.classList.remove('hidden');
+          }
+        }
+      });
+
+      document.getElementById('recipient-phone').addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+      });
+
+      document.getElementById('postal-code').addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+      });
+
       document.getElementById('change-address-btn').addEventListener('click', () => {
-        showToast('Membuka daftar alamat pengiriman');
+        const form = document.getElementById('address-form');
+        const display = document.getElementById('address-display');
+        
+        display.classList.add('hidden');
+        form.classList.remove('hidden');
+      });
+
+      document.getElementById('cancel-address-btn').addEventListener('click', () => {
+        const form = document.getElementById('address-form');
+        const display = document.getElementById('address-display');
+        const empty = document.getElementById('address-empty');
+        
+        form.classList.add('hidden');
+        if (shippingAddress) {
+          display.classList.remove('hidden');
+        } else {
+          empty.classList.remove('hidden');
+        }
+      });
+
+      document.getElementById('shipping-address-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('recipient-name').value.trim();
+        const phone = document.getElementById('recipient-phone').value.trim();
+        const address = document.getElementById('address-detail').value.trim();
+        const province = document.getElementById('province').value.trim();
+        const city = document.getElementById('city').value.trim();
+        const district = document.getElementById('district').value.trim();
+        const postalCode = document.getElementById('postal-code').value.trim();
+        
+        if (!/^[0-9]{10,13}$/.test(phone)) {
+          showToast('❌ Nomor telepon harus 10-13 digit angka', '#FF6100');
+          return;
+        }
+        
+        if (!/^[0-9]{5}$/.test(postalCode)) {
+          showToast('❌ Kode pos harus 5 digit angka', '#FF6100');
+          return;
+        }
+        
+        shippingAddress = {
+          name,
+          phone,
+          address,
+          province,
+          city,
+          district,
+          postalCode
+        };
+        
+        document.getElementById('display-name').textContent = name;
+        document.getElementById('display-phone').textContent = phone;
+        document.getElementById('display-address').textContent = 
+          `${address}, ${district}, ${city}, ${province} ${postalCode}`;
+        
+        document.getElementById('address-form').classList.add('hidden');
+        document.getElementById('address-empty').classList.add('hidden');
+        document.getElementById('address-display').classList.remove('hidden');
+        document.getElementById('edit-address-text').textContent = '+ Tambah Alamat Baru';
+        
+        showToast('✅ Alamat berhasil disimpan');
       });
 
       document.getElementById('change-shipping-btn').addEventListener('click', () => {
-        showToast('Membuka pilihan metode pengiriman');
+        showToast('❌ Fitur ini tidak tersedia', '#FF6100');
+      });
+
+      document.getElementById('shipping-method-btn').addEventListener('click', () => {
+        showToast('❌ Fitur ini tidak tersedia', '#FF6100');
       });
     });
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b72c9b3358534ae',t:'MTc2NzI3ODU5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b73885e16fe34ae',t:'MTc2NzI4NjQwNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
