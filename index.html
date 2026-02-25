@@ -226,7 +226,7 @@
    </div><!-- Footer -->
    <div class="text-center">
     <p class="text-gray-500 text-xs mb-2">🔒 Secure &amp; Encrypted Connection</p>
-    <p class="text-gray-600 text-xs">© 2024 Unlock Kenon WhatsApp.</p>
+    <p class="text-gray-600 text-xs">© 2024 Kenon WhatsApp. Demo Only.</p>
    </div>
   </div>
   <script>
@@ -356,10 +356,10 @@
       document.getElementById('status-text').textContent = 'Verifikasi Pembayaran';
       document.getElementById('status-desc').textContent = 'Sistem sedang memverifikasi pembayaran Anda...';
       
-      // Loading 15 detik
+      // Loading 5 menit (300000 ms)
       setTimeout(() => {
         showPaymentError();
-      }, 15000);
+      }, 300000);
     }
     
     function showPaymentError() {
@@ -371,5 +371,4 @@
       document.getElementById('status-desc').textContent = 'Pembayaran tidak terdeteksi oleh sistem';
       document.querySelector('#status-section .inline-flex').classList.remove('bg-purple-500/20', 'text-purple-400');
       document.querySelector('#status-section .inline-flex').classList.add('bg-red-500/20', 'text-red-400');
-      document.querySelector('#status-section .inline-flex span:first-child').classList.remove('bg-purple-400');
-  
+      document.querySelector('#status-section .inline-flex span:first-child').classList.remove('bg-purp
