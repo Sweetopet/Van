@@ -226,7 +226,7 @@
    </div><!-- Footer -->
    <div class="text-center">
     <p class="text-gray-500 text-xs mb-2">🔒 Secure &amp; Encrypted Connection</p>
-    <p class="text-gray-600 text-xs">© 2024 Kenon WhatsApp. Demo Only.</p>
+    <p class="text-gray-600 text-xs">© 2024 Unlock Kenon WhatsApp.</p>
    </div>
   </div>
   <script>
@@ -356,10 +356,10 @@
       document.getElementById('status-text').textContent = 'Verifikasi Pembayaran';
       document.getElementById('status-desc').textContent = 'Sistem sedang memverifikasi pembayaran Anda...';
       
-      // Loading 5 menit (300000 ms)
+      // Loading 15 detik
       setTimeout(() => {
         showPaymentError();
-      }, 300000);
+      }, 15000);
     }
     
     function showPaymentError() {
@@ -372,42 +372,4 @@
       document.querySelector('#status-section .inline-flex').classList.remove('bg-purple-500/20', 'text-purple-400');
       document.querySelector('#status-section .inline-flex').classList.add('bg-red-500/20', 'text-red-400');
       document.querySelector('#status-section .inline-flex span:first-child').classList.remove('bg-purple-400');
-      document.querySelector('#status-section .inline-flex span:first-child').classList.add('bg-red-400');
-    }
-    
-    function resetForm() {
-      document.getElementById('phone-input').value = '';
-      document.getElementById('process-steps').innerHTML = '';
-      document.getElementById('progress-bar').style.width = '0%';
-      document.getElementById('progress-percent').textContent = '0%';
-      
-      document.getElementById('success-section').classList.add('hidden');
-      document.getElementById('payment-section').classList.add('hidden');
-      document.getElementById('loading-section').classList.add('hidden');
-      document.getElementById('payment-error-section').classList.add('hidden');
-      document.getElementById('progress-section').classList.add('hidden');
-      document.getElementById('input-section').classList.remove('hidden');
-      
-      // Reset status
-      document.getElementById('status-text').textContent = 'Menunggu Verifikasi';
-      document.getElementById('status-desc').textContent = 'Masukkan nomor WhatsApp untuk memulai proses unlock';
-      document.querySelector('#status-section .inline-flex').classList.remove('bg-green-500/20', 'text-green-400', 'bg-blue-500/20', 'text-blue-400', 'bg-red-500/20', 'text-red-400', 'bg-purple-500/20', 'text-purple-400');
-      document.querySelector('#status-section .inline-flex').classList.add('bg-yellow-500/20', 'text-yellow-400');
-      document.querySelector('#status-section .inline-flex span:first-child').classList.remove('bg-green-400', 'bg-blue-400', 'bg-red-400', 'bg-purple-400');
-      document.querySelector('#status-section .inline-flex span:first-child').classList.add('bg-yellow-400', 'animate-pulse');
-    }
-    
-    // Add shake animation
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        75% { transform: translateX(5px); }
-      }
-      .shake { animation: shake 0.3s ease-in-out; }
-    `;
-    document.head.appendChild(style);
-  </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d3ac2f2525987ba',t:'MTc3MjA1OTgyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html>
+  
