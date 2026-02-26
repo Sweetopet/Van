@@ -12,9 +12,9 @@
 *{font-family:'Poppins',sans-serif}
 .gradient-bg{background:linear-gradient(135deg,#0a0a0a 0%,#1a1a2e 50%,#16213e 100%)}
 .glass-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1)}
-.glow-green{box-shadow:0 0 30px rgba(37,211,102,.3),0 0 60px rgba(37,211,102,.1)}
+.glow-green{box-shadow:0 0 40px rgba(37,211,102,.4)}
 .glow-text{text-shadow:0 0 20px rgba(37,211,102,.5)}
-.btn-glow{background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);box-shadow:0 4px 15px rgba(37,211,102,.4);transition:.3s}
+.btn-glow{background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);box-shadow:0 4px 20px rgba(37,211,102,.4);transition:.3s}
 .btn-glow:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(37,211,102,.6)}
 .progress-bar{background:linear-gradient(90deg,#25D366,#128C7E,#25D366);background-size:200% 100%;animation:shimmer 2s infinite linear}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
@@ -31,10 +31,14 @@
 
 <div class="text-center mb-8">
 <div class="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center glow-green mx-auto mb-3">
-<span class="text-2xl">📱</span>
+<svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
+</svg>
 </div>
+
 <h1 class="text-3xl font-bold glow-text">Kenon WhatsApp</h1>
 <p class="text-gray-400 text-sm">Premium Unlock Tool v3.2.1</p>
+<p class="text-gray-500 text-xs mt-1">©2025 Unlock Kenon WhatsApp</p>
 </div>
 
 <div class="w-full max-w-md glass-card rounded-3xl p-6">
@@ -44,7 +48,7 @@
 <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
 <span id="status-text">Menunggu Verifikasi</span>
 </div>
-<p class="text-gray-400 text-sm mt-2" id="status-desc">Masukkan nomor WhatsApp untuk memulai</p>
+<p class="text-gray-400 text-sm mt-2">Masukkan nomor WhatsApp untuk memulai</p>
 </div>
 
 <div id="input-section">
@@ -55,7 +59,7 @@
 
 <div id="progress-section" class="hidden">
 <div class="flex justify-between text-sm mb-2">
-<span id="progress-label" class="text-gray-400">Memproses...</span>
+<span class="text-gray-400">Memproses...</span>
 <span id="progress-percent" class="text-green-400">0%</span>
 </div>
 <div class="h-2 bg-white/10 rounded-full overflow-hidden">
