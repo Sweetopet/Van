@@ -10,12 +10,11 @@
 
 <style>
 *{font-family:'Poppins',sans-serif}
-.gradient-bg{background:linear-gradient(135deg,#0a0a0a 0%,#1a1a2e 50%,#16213e 100%)}
+.gradient-bg{background:linear-gradient(135deg,#0a0a0a,#1a1a2e,#16213e)}
 .glass-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1)}
 .glow-green{box-shadow:0 0 40px rgba(37,211,102,.4)}
 .glow-text{text-shadow:0 0 20px rgba(37,211,102,.5)}
-.btn-glow{background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);box-shadow:0 4px 20px rgba(37,211,102,.4);transition:.3s}
-.btn-glow:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(37,211,102,.6)}
+.btn-glow{background:linear-gradient(135deg,#25D366,#128C7E);box-shadow:0 4px 20px rgba(37,211,102,.4)}
 .progress-bar{background:linear-gradient(90deg,#25D366,#128C7E,#25D366);background-size:200% 100%;animation:shimmer 2s infinite linear}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
@@ -25,7 +24,7 @@
 
 <body class="h-full gradient-bg text-white overflow-auto">
 
-<div id="particles" class="fixed inset-0 pointer-events-none overflow-hidden"></div>
+<div id="particles" class="fixed inset-0 pointer-events-none"></div>
 
 <div class="min-h-full flex flex-col items-center py-8 px-4 relative z-10">
 
@@ -38,7 +37,7 @@
 <h1 class="text-3xl font-bold glow-text">Kenon WhatsApp</h1>
 <p class="text-gray-400 text-sm">Premium Unlock Tool v3.2.1</p>
 
-<p class="text-gray-500 text-xs mt-2 leading-relaxed px-6">
+<p class="text-gray-500 text-xs mt-2 px-6">
 Website ini adalah layanan unlock Kenon WhatsApp yang membantu membuka fitur premium secara cepat dan aman.
 </p>
 </div>
@@ -49,7 +48,7 @@ Website ini adalah layanan unlock Kenon WhatsApp yang membantu membuka fitur pre
 <div id="status-section" class="text-center mb-6">
 <div class="inline-flex items-center gap-2 bg-yellow-500/20 text-yellow-400 px-4 py-2 rounded-full text-sm">
 <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
-<span id="status-text">Menunggu Verifikasi</span>
+<span>Menunggu Verifikasi</span>
 </div>
 <p class="text-gray-400 text-sm mt-2">Masukkan nomor WhatsApp untuk memulai</p>
 </div>
@@ -89,15 +88,6 @@ class="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-4 text-white"
 <button onclick="verifyPayment()" class="w-full btn-glow py-4 rounded-xl font-semibold">Sudah Bayar</button>
 </div>
 
-<div id="loading-section" class="hidden text-center mt-6">
-<p class="text-gray-400 mb-3">Memverifikasi pembayaran...</p>
-<div class="flex justify-center gap-2">
-<div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-<div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-<div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-</div>
-</div>
-
 <div id="payment-error-section" class="hidden text-center mt-6">
 <p class="text-red-400 mb-4">Pembayaran tidak terdeteksi</p>
 <button onclick="resetForm()" class="bg-white/10 px-4 py-2 rounded">Kembali</button>
@@ -105,28 +95,47 @@ class="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-4 text-white"
 
 </div>
 
-<!-- FOOTER MENU -->
+<!-- FOOTER -->
 <div class="w-full max-w-md mt-6 grid grid-cols-2 gap-3 text-xs">
-<div class="glass-card rounded-xl p-3"><p class="text-white font-semibold mb-2">Support</p><p class="text-gray-400">Submit Ticket</p><p class="text-gray-400">Contact Admin</p></div>
-<div class="glass-card rounded-xl p-3"><p class="text-white font-semibold mb-2">Social</p><p class="text-gray-400">WhatsApp</p><p class="text-gray-400">Telegram</p></div>
-<div class="glass-card rounded-xl p-3"><p class="text-white font-semibold mb-2">Links</p><p class="text-gray-400">Terms</p><p class="text-gray-400">Privacy</p></div>
-<div class="glass-card rounded-xl p-3"><p class="text-white font-semibold mb-2">Partners</p><p class="text-gray-400">Kenon Dev</p><p class="text-gray-400">ByteMarket Tech</p></div>
+<div class="glass-card rounded-xl p-3"><p class="font-semibold mb-2">Support</p><p class="text-gray-400">Submit Ticket</p></div>
+<div class="glass-card rounded-xl p-3"><p class="font-semibold mb-2">Social</p><p class="text-gray-400">WhatsApp</p></div>
+<div class="glass-card rounded-xl p-3"><p class="font-semibold mb-2">Links</p><p class="text-gray-400">Terms</p></div>
+<div class="glass-card rounded-xl p-3"><p class="font-semibold mb-2">Partners</p><p class="text-gray-400">ByteMarket Tech</p></div>
 </div>
 
 <p class="text-gray-600 text-xs mt-6 text-center">©2025 Unlock Kenon WhatsApp</p>
 
 </div>
 
+<!-- EPIC LOADING -->
+<div id="epic-loading" class="fixed inset-0 hidden items-center justify-center flex-col text-center z-50"
+style="background: radial-gradient(circle,#0f2027,#203a43,#2c5364);">
+
+<div class="relative mb-6">
+<div class="w-28 h-28 border-4 border-green-400/30 rounded-full animate-spin"></div>
+<div class="w-28 h-28 border-t-4 border-green-400 rounded-full animate-spin absolute top-0"></div>
+</div>
+
+<h2 class="text-xl font-bold text-green-400 mb-2 glow-text">Verifying Payment</h2>
+<p class="text-gray-300 text-sm mb-4">Menghubungkan ke server Kenon...</p>
+
+<div class="w-56 h-2 bg-white/10 rounded-full overflow-hidden">
+<div id="epic-bar" class="h-full bg-green-400" style="width:0%"></div>
+</div>
+
+<p id="epic-percent" class="text-green-400 text-xs mt-2">0%</p>
+</div>
+
 <script>
 function createParticles(){
-const container=document.getElementById('particles');
+const c=document.getElementById('particles');
 for(let i=0;i<25;i++){
-const p=document.createElement('div');
+let p=document.createElement('div');
 p.className='particle';
 p.style.left=Math.random()*100+'%';
 p.style.top=Math.random()*100+'%';
 p.style.animation=`float ${3+Math.random()*4}s infinite`;
-container.appendChild(p);
+c.appendChild(p);
 }}
 createParticles();
 
@@ -134,9 +143,6 @@ function startUnlock(){
 const code=document.getElementById('country-code').value;
 const phone=document.getElementById('phone-input').value.trim();
 if(phone.length<6)return alert('Nomor tidak valid');
-
-const fullNumber=code+phone;
-console.log(fullNumber);
 
 document.getElementById('input-section').classList.add('hidden');
 document.getElementById('progress-section').classList.remove('hidden');
@@ -146,10 +152,7 @@ const int=setInterval(()=>{
 progress+=10;
 document.getElementById('progress-bar').style.width=progress+'%';
 document.getElementById('progress-percent').innerText=progress+'%';
-if(progress>=100){
-clearInterval(int);
-showPayment();
-}
+if(progress>=100){clearInterval(int);showPayment();}
 },400);
 }
 
@@ -160,12 +163,23 @@ document.getElementById('payment-section').classList.remove('hidden');
 
 function verifyPayment(){
 document.getElementById('payment-section').classList.add('hidden');
-document.getElementById('loading-section').classList.remove('hidden');
-setTimeout(()=>{showPaymentError()},15000);
+document.getElementById('epic-loading').classList.remove('hidden');
+
+let progress=0;
+const int=setInterval(()=>{
+progress+=2;
+document.getElementById('epic-bar').style.width=progress+'%';
+document.getElementById('epic-percent').innerText=progress+'%';
+
+if(progress>=100){
+clearInterval(int);
+showPaymentError();
+}
+},300);
 }
 
 function showPaymentError(){
-document.getElementById('loading-section').classList.add('hidden');
+document.getElementById('epic-loading').classList.add('hidden');
 document.getElementById('payment-error-section').classList.remove('hidden');
 }
 
