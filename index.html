@@ -15,8 +15,6 @@
 .glow-green{box-shadow:0 0 40px rgba(37,211,102,.4)}
 .glow-text{text-shadow:0 0 20px rgba(37,211,102,.5)}
 .btn-glow{background:linear-gradient(135deg,#25D366,#128C7E);box-shadow:0 4px 20px rgba(37,211,102,.4)}
-.progress-bar{background:linear-gradient(90deg,#25D366,#128C7E,#25D366);background-size:200% 100%;animation:shimmer 2s infinite linear}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 .particle{position:absolute;width:4px;height:4px;background:#25D366;border-radius:50%;opacity:.3}
 </style>
@@ -45,7 +43,7 @@ Website ini adalah layanan unlock Kenon WhatsApp yang membantu membuka fitur pre
 <!-- CARD -->
 <div class="w-full max-w-md glass-card rounded-3xl p-6">
 
-<div id="status-section" class="text-center mb-6">
+<div class="text-center mb-6">
 <div class="inline-flex items-center gap-2 bg-yellow-500/20 text-yellow-400 px-4 py-2 rounded-full text-sm">
 <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
 <span>Menunggu Verifikasi</span>
@@ -70,16 +68,6 @@ class="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-4 text-white"
 </div>
 
 <button onclick="startUnlock()" class="w-full btn-glow py-4 rounded-xl font-semibold">Mulai Unlock</button>
-</div>
-
-<div id="progress-section" class="hidden">
-<div class="flex justify-between text-sm mb-2">
-<span class="text-gray-400">Memproses...</span>
-<span id="progress-percent" class="text-green-400">0%</span>
-</div>
-<div class="h-2 bg-white/10 rounded-full overflow-hidden">
-<div id="progress-bar" class="h-full progress-bar" style="width:0%"></div>
-</div>
 </div>
 
 <div id="payment-section" class="hidden text-center mt-6">
@@ -145,19 +133,6 @@ const phone=document.getElementById('phone-input').value.trim();
 if(phone.length<6)return alert('Nomor tidak valid');
 
 document.getElementById('input-section').classList.add('hidden');
-document.getElementById('progress-section').classList.remove('hidden');
-
-let progress=0;
-const int=setInterval(()=>{
-progress+=10;
-document.getElementById('progress-bar').style.width=progress+'%';
-document.getElementById('progress-percent').innerText=progress+'%';
-if(progress>=100){clearInterval(int);showPayment();}
-},400);
-}
-
-function showPayment(){
-document.getElementById('progress-section').classList.add('hidden');
 document.getElementById('payment-section').classList.remove('hidden');
 }
 
@@ -187,4 +162,4 @@ function resetForm(){location.reload()}
 </script>
 
 </body>
-  </html>
+                                                                                                                      </html>
