@@ -29,26 +29,21 @@
 
 <div class="min-h-full flex flex-col items-center py-8 px-4 relative z-10">
 
+<!-- HEADER -->
 <div class="text-center mb-8">
-
 <div class="w-20 h-20 rounded-full overflow-hidden glow-green mx-auto mb-3 border-2 border-green-400/40">
-<img src="https://files.catbox.moe/gn82d3.jpg"
-class="w-full h-full object-cover"
-alt="Kenon WhatsApp Logo">
+<img src="https://files.catbox.moe/gn82d3.jpg" class="w-full h-full object-cover">
 </div>
 
 <h1 class="text-3xl font-bold glow-text">Kenon WhatsApp</h1>
-
 <p class="text-gray-400 text-sm">Premium Unlock Tool v3.2.1</p>
 
 <p class="text-gray-500 text-xs mt-2 leading-relaxed px-6">
 Website ini adalah layanan unlock Kenon WhatsApp yang membantu membuka fitur premium secara cepat dan aman.
 </p>
-
-<p class="text-gray-600 text-xs mt-1">©2025 Unlock Kenon WhatsApp</p>
-
 </div>
 
+<!-- CARD -->
 <div class="w-full max-w-md glass-card rounded-3xl p-6">
 
 <div id="status-section" class="text-center mb-6">
@@ -61,7 +56,20 @@ Website ini adalah layanan unlock Kenon WhatsApp yang membantu membuka fitur pre
 
 <div id="input-section">
 <label class="text-sm text-gray-300">Nomor WhatsApp</label>
-<input id="phone-input" type="tel" placeholder="812xxxx" class="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-4 mt-2 mb-4 text-white">
+
+<div class="flex gap-2 mt-2 mb-4">
+<select id="country-code" class="bg-white/5 border border-white/10 rounded-xl px-3 text-white">
+<option value="+62">+62 🇮🇩</option>
+<option value="+60">+60 🇲🇾</option>
+<option value="+65">+65 🇸🇬</option>
+<option value="+1">+1 🇺🇸</option>
+<option value="+44">+44 🇬🇧</option>
+</select>
+
+<input id="phone-input" type="tel" placeholder="812xxxx"
+class="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-4 text-white">
+</div>
+
 <button onclick="startUnlock()" class="w-full btn-glow py-4 rounded-xl font-semibold">Mulai Unlock</button>
 </div>
 
@@ -96,6 +104,17 @@ Website ini adalah layanan unlock Kenon WhatsApp yang membantu membuka fitur pre
 </div>
 
 </div>
+
+<!-- FOOTER MENU -->
+<div class="w-full max-w-md mt-6 grid grid-cols-2 gap-3 text-xs">
+<div class="glass-card rounded-xl p-3"><p class="text-white font-semibold mb-2">Support</p><p class="text-gray-400">Submit Ticket</p><p class="text-gray-400">Contact Admin</p></div>
+<div class="glass-card rounded-xl p-3"><p class="text-white font-semibold mb-2">Social</p><p class="text-gray-400">WhatsApp</p><p class="text-gray-400">Telegram</p></div>
+<div class="glass-card rounded-xl p-3"><p class="text-white font-semibold mb-2">Links</p><p class="text-gray-400">Terms</p><p class="text-gray-400">Privacy</p></div>
+<div class="glass-card rounded-xl p-3"><p class="text-white font-semibold mb-2">Partners</p><p class="text-gray-400">Kenon Dev</p><p class="text-gray-400">ByteMarket Tech</p></div>
+</div>
+
+<p class="text-gray-600 text-xs mt-6 text-center">©2025 Unlock Kenon WhatsApp</p>
+
 </div>
 
 <script>
@@ -112,8 +131,12 @@ container.appendChild(p);
 createParticles();
 
 function startUnlock(){
+const code=document.getElementById('country-code').value;
 const phone=document.getElementById('phone-input').value.trim();
-if(phone.length<9)return alert('Nomor tidak valid');
+if(phone.length<6)return alert('Nomor tidak valid');
+
+const fullNumber=code+phone;
+console.log(fullNumber);
 
 document.getElementById('input-section').classList.add('hidden');
 document.getElementById('progress-section').classList.remove('hidden');
@@ -138,7 +161,6 @@ document.getElementById('payment-section').classList.remove('hidden');
 function verifyPayment(){
 document.getElementById('payment-section').classList.add('hidden');
 document.getElementById('loading-section').classList.remove('hidden');
-
 setTimeout(()=>{showPaymentError()},15000);
 }
 
